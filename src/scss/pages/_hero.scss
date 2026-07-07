@@ -1,0 +1,185 @@
+@use 'base/variables' as *;
+
+$hero-pearl: #fbfbfb;
+$hero-slate: #212121;
+$hero-cube-size: 45vh;
+
+body.page-hero {
+  background-color: $hero-pearl;
+  color: $hero-slate;
+}
+
+.page-hero {
+  background-color: $hero-pearl;
+  overflow-x: hidden;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+}
+
+.padding-global {
+  padding-inline: 2.5rem;
+}
+
+.hero-container {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.hero-component {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+// 원본: relative + flex — absolute inset 0 아님
+.home-2-hero {
+  z-index: 3;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-2-hero.align-middle-mobile {
+  mix-blend-mode: exclusion;
+}
+
+.home-hero-heading {
+  color: $hero-pearl;
+  letter-spacing: -0.8vw;
+  white-space: nowrap;
+  font-family: $font-body;
+  font-size: 11vw;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+}
+
+.home-hero-heading.blending {
+  color: $hero-pearl;
+  mix-blend-mode: exclusion;
+}
+
+.cube-wrapper {
+  z-index: 2;
+  pointer-events: none;
+  perspective: 100vh;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+}
+
+.cube {
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  display: flex;
+  position: relative;
+  width: $hero-cube-size;
+  height: $hero-cube-size;
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+}
+
+.cube-front,
+.cube-back,
+.cube-right,
+.cube-left,
+.cube-top,
+.cube-bottom {
+  transform-style: preserve-3d;
+  background-color: #ffffff0d;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  overflow: hidden;
+  width: $hero-cube-size;
+  height: $hero-cube-size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+}
+
+.cube-front {
+  z-index: 2;
+  transform: translate3d(0, 0, 25vh);
+}
+
+.cube-back {
+  transform: translate3d(0, 0, -15vh);
+}
+
+.cube-right {
+  transform-origin: 100% 50%;
+  transform: translate3d(0, 0, 25vh) rotateY(-90deg);
+}
+
+.cube-left {
+  transform-origin: 0% 50%;
+  transform: translate3d(0, 0, 25vh) rotateY(90deg);
+}
+
+.cube-top {
+  transform-origin: 50% 0%;
+  transform: translate3d(0, 0, 25vh) rotateX(-90deg);
+}
+
+.cube-bottom {
+  transform-origin: 50% 100%;
+  transform: translate3d(0, 0, 25vh) rotateX(90deg);
+}
+
+.flip-vertical {
+  transform: rotateX(180deg);
+}
+
+@media screen and (max-width: 991px) {
+  .home-hero-heading {
+    font-size: 6rem;
+  }
+
+  .home-2-hero {
+    min-height: 100svh;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .home-hero-heading {
+    white-space: normal;
+    font-size: clamp(2.5rem, 14vw, 5rem);
+    letter-spacing: -0.04em;
+    text-align: center;
+  }
+
+  .home-2-hero {
+    flex-flow: column;
+  }
+
+  .home-2-hero.align-middle-mobile {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .padding-global {
+    padding-inline: 1.25rem;
+  }
+}

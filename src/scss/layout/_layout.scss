@@ -1,0 +1,28 @@
+@use 'base/variables' as *;
+@use 'base/mixins' as *;
+
+.main {
+  @include container;
+  padding-block: 32px 48px;
+}
+
+.page {
+  padding-block: 24px;
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: $color-primary;
+  }
+
+  p {
+    color: $color-text-muted;
+    line-height: 1.7;
+  }
+
+  @include tablet {
+    h1 {
+      font-size: 36px;
+    }
+  }
+}

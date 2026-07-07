@@ -1,0 +1,21 @@
+// Breakpoints (mobile-first)
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+$bp-wide: 1280px;
+
+// Colors
+$color-bg: #f2f4f9;
+$color-bg-white: #fff;
+$color-primary: #123371;
+$color-text: #1a1a1a;
+$color-text-muted: #5c656c;
+$color-border: #dce3f0;
+
+// Layout
+$container-max-width: 960px;
+$container-padding: 20px;
+$header-height: 60px;
+
+// Typography
+$font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-heading: 'HangeulNuri-Bold', 'Pretendard', sans-serif;
