@@ -1,0 +1,84 @@
+@use 'base/variables' as *;
+@use 'base/mixins' as *;
+
+// ── Register (#apply) ──
+
+.section--register {
+  background-color: $color-bg;
+}
+
+.section__inner--register {
+  gap: 24px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+
+  @include tablet {
+    gap: 32px;
+  }
+
+  @include desktop {
+    padding-top: 140px;
+    padding-bottom: 140px;
+  }
+
+  > .btn {
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background:
+      linear-gradient($color-bg-white, $color-bg-white) padding-box,
+      linear-gradient(
+        90deg,
+        $color-btn-border 0%,
+        #7b61ff 42%,
+        #c44dff 58%,
+        $color-accent 100%
+      ) border-box;
+    background-color: transparent;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+      background:
+        linear-gradient($color-bg-white, $color-bg-white) padding-box,
+        linear-gradient(
+          90deg,
+          $color-primary 0%,
+          #6d52ff 42%,
+          #b83dff 58%,
+          #ff4b19 100%
+        ) border-box;
+    }
+
+    @include tablet {
+      padding: 18px 36px;
+      font-size: 20px;
+      gap: 8px;
+      border-radius: 12px;
+    }
+  }
+}
+
+.register__title {
+  width: 100%;
+  text-align: center;
+  font-family: $font-heading;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+  color: $color-text;
+
+  @include tablet {
+    font-size: 40px;
+  }
+
+  .register__line {
+    @include desktop{
+      display: block;
+    }
+  }
+
+  .register__line--bold {
+    font-weight: 700;
+  }
+}

@@ -1,0 +1,47 @@
+@use 'base/variables' as *;
+@use 'base/mixins' as *;
+
+.top-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: #fff;
+  color: $color-text;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  @include tablet {
+    right: 50px;
+    bottom: 50px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.85;
+  }
+
+  &.is-visible:hover,
+  &.is-visible:focus-visible {
+    opacity: 0.85;
+  }
+}

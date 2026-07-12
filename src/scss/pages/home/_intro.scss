@@ -1,0 +1,193 @@
+﻿@use 'base/variables' as *;
+@use 'base/mixins' as *;
+
+// ── Intro pin (#intro-hss) ──
+
+.section--intro-pin {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background-color: $color-bg;
+}
+
+.intro-pin {
+  &__track {
+    position: relative;
+    height: 200vh;
+  }
+
+  &__sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: $color-bg;
+  }
+}
+
+.section__inner--intro-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  @include padding-x;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  @include tablet {
+    gap: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: center;
+
+  @include tablet {
+    gap: 50px;
+  }
+
+  @include desktop {
+    gap: 10px;
+  }
+
+  &__eyebrow {
+    font-size: 15px;
+    font-weight: 600;
+    color: $color-text;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    pointer-events: none;
+
+    @include tablet {
+      font-size: 18px;
+    }
+
+    @include desktop {
+      font-size: 20px;
+    }
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+
+    &--morph {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      max-width: 100%;
+      font-size: 32px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      --expand: 0;
+
+      @include tablet {
+        font-size: 58px;
+      }
+
+      @include desktop {
+        font-size: 64px;
+      }
+
+      @media (max-width: #{$bp-tablet - 1px}) {
+        min-height: 84px;
+      }
+
+      &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      &.is-morph-complete {
+        --expand: 1;
+
+        .morph-item__rest {
+          max-width: none;
+          opacity: 1;
+        }
+      }
+
+      &.is-measuring {
+        position: fixed;
+        left: -100vw;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__visual {
+    position: relative;
+    z-index: 1;
+    width: 240px;
+    height: 240px;
+    margin-top: 40px;
+    margin-inline: auto;
+  }
+}
+
+.morph-item {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+
+  &--sense {
+    .morph-item__initial,
+    .morph-item__rest {
+      background: linear-gradient(90deg, #1e6bff, #46a6ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  &--sensibility {
+    .morph-item__initial,
+    .morph-item__rest {
+      background: linear-gradient(90deg, #ffa245, #ff5c34);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  &__initial {
+    flex-shrink: 0;
+  }
+
+  &__rest {
+    display: inline-block;
+    overflow: hidden;
+    max-width: calc(var(--expand, 0) * var(--rest-width, 0px));
+    opacity: var(--expand, 0);
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+}

@@ -12,9 +12,61 @@
   }
 }
 
+@mixin hero-mobile-tablet {
+  @media (max-width: #{$bp-hero-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin hero-desktop {
+  @media (min-width: $bp-hero-desktop) {
+    @content;
+  }
+}
+
+// ── 패딩 (좌우 / 세로 분리 — inline·block 대신 이 이름만 사용) ──
+
+/// 좌우 컨테이너 여백 (모바일 24 → 태블릿 140 → 데스크탑 240)
+@mixin padding-x {
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+
+  @include tablet {
+    padding-left: $container-padding-tablet;
+    padding-right: $container-padding-tablet;
+  }
+
+  @include desktop {
+    padding-left: $container-padding-desktop;
+    padding-right: $container-padding-desktop;
+  }
+}
+
+/// section__inner 기본 세로 여백
+@mixin padding-y-section {
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  @include tablet {
+    padding-top: 60px;
+    padding-bottom: 50px;
+  }
+
+  @include desktop {
+    padding-top: 140px;
+    padding-bottom: 50px;
+  }
+}
+
+/// section__inner 기본 (좌우 + 세로)
+@mixin section-inner-padding {
+  @include padding-x;
+  @include padding-y-section;
+}
+
 @mixin container {
   width: 100%;
   max-width: $container-max-width;
   margin-inline: auto;
-  padding-inline: $container-padding;
+  @include padding-x;
 }

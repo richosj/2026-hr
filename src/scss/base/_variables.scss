@@ -1,21 +1,34 @@
 // Breakpoints (mobile-first)
-$bp-tablet: 768px;
-$bp-desktop: 1024px;
-$bp-wide: 1280px;
+// mobile: ~759 / tablet: 760–1279 / site desktop: 1280+
+// hero PC overlay: 1270+ (큐브 위 타이틀 오버레이)
+$bp-tablet: 760px;
+$bp-hero-desktop: 1270px;
+$bp-desktop: 1280px;
+$bp-wide: 1440px;
 
 // Colors
-$color-bg: #f2f4f9;
+$color-bg: #fcfcfc;
 $color-bg-white: #fff;
-$color-primary: #123371;
-$color-text: #1a1a1a;
-$color-text-muted: #5c656c;
+$color-bg-muted: #f2f4f6;
+$color-bg-message: rgba(246, 243, 248, 1);
+$color-bg-footer: #22282E;
+$color-primary: #1e6bff;
+$color-accent: #ff5c34;
+$color-text: #222;
+$color-text-muted: #666;
+$color-text-sub: #808080;
+$color-chip: #937e69;
 $color-border: #dce3f0;
+$color-btn-border: #2d78f5;
 
 // Layout
-$container-max-width: 960px;
-$container-padding: 20px;
+$container-max-width: 1440px;
+$container-padding: 24px;
+$container-padding-tablet: 140px;
+$container-padding-desktop: 240px;
 $header-height: 60px;
+$header-height-desktop: 100px;
 
 // Typography
 $font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-$font-heading: 'HangeulNuri-Bold', 'Pretendard', sans-serif;
+$font-heading: 'Gmarket Sans', 'HangeulNuri-Bold', 'Pretendard', sans-serif;

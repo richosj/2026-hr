@@ -1,0 +1,153 @@
+@use 'base/variables' as *;
+@use 'base/mixins' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  // background-color: rgba(255, 255, 255, 0.16);
+  // backdrop-filter: blur(8px);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: $container-max-width;
+    margin-inline: auto;
+    padding-inline: $container-padding;
+    min-height: $header-height;
+
+    @include tablet {
+      padding-inline: $container-padding-tablet;
+      min-height: 80px;
+    }
+
+    @include desktop {
+      padding-inline: 0;
+      padding-left: 0;
+      padding-right: 0;
+      min-height: $header-height-desktop;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 26px;
+    background: url('/assets/images/logo.svg') no-repeat center center / contain;
+    @include tablet {
+      width: 160px;
+      height: 35px;
+      background-image: url('/assets/images/logo-desktop.svg');
+    }
+  }
+
+  &__menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //width: 44px;
+    height: 44px;
+
+    @include desktop {
+      display: none;
+    }
+  }
+
+  &__menu-icon,
+  &__menu-icon::before,
+  &__menu-icon::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: $color-text;
+    border-radius: 1px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  &__menu-icon {
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+
+    &::before {
+      top: -6px;
+    }
+
+    &::after {
+      top: 6px;
+    }
+  }
+
+  &__nav {
+    @include desktop {
+      display: block;
+    }
+
+    @media (max-width: #{$bp-desktop - 1px}) {
+      position: fixed;
+      inset: $header-height 0 auto 0;
+      display: none;
+      padding: 16px $container-padding;
+      background-color: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid $color-border;
+      backdrop-filter: blur(8px);
+
+      &.is-open {
+        display: block;
+      }
+    }
+  }
+
+  &__menu {
+    display: flex;
+    gap: 0;
+
+    @media (max-width: #{$bp-desktop - 1px}) {
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: $color-text;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    transition: color 0.2s;
+
+    @include desktop {
+      padding: 40px 30px;
+      font-size: 18px;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: $color-accent;
+    }
+
+    &--accent {
+      font-weight: 600;
+      //color: $color-accent;
+    }
+  }
+}

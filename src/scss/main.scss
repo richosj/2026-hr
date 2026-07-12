@@ -2,6 +2,11 @@
 @use 'base/reset';
 @use 'base/fonts';
 @use 'components/typography';
+@use 'components/img-placeholder';
+@use 'components/buttons';
 @use 'layout/layout';
-@use 'layout/header-footer';
+@use 'layout/header';
+@use 'layout/footer';
+@use 'layout/top-btn';
 @use 'pages/hero';
+@use 'pages/home';

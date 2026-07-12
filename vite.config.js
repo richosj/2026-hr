@@ -7,8 +7,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const pageData = {
   '/index.html': {
-    title: 'Creative Agency',
-    description: '2026 HR — Creative Agency Hero',
+    title: '2026 HR FAIR',
+    description: '엑스퍼트컨설팅 2026 HR FAIR — AI시대, HSS에 주목하라',
   },
   '/about.html': {
     title: '소개',
@@ -34,6 +34,11 @@ export default defineConfig(({ mode }) => ({
       scss: {
         loadPaths: [path.resolve(__dirname, 'src/scss')],
       },
+    },
+  },
+  resolve: {
+    alias: {
+      '@assets': path.resolve(__dirname, 'src/assets'),
     },
   },
   build: {

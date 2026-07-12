@@ -1,0 +1,8 @@
+// Home page
+// sections → 공통 .section 껍데기
+// intro / message / feature / register → 섹션별 layout + 컴포넌트
+@use 'home/sections';
+@use 'home/intro';
+@use 'home/message';
+@use 'home/feature';
+@use 'home/register';

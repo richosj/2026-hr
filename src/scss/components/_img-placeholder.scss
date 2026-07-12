@@ -1,0 +1,48 @@
+@use 'base/variables' as *;
+@use 'base/mixins' as *;
+
+// Image placeholders — 실제 이미지는 이후 교체
+.img-placeholder {
+  display: block;
+  background-color: #ccc;
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+
+  &--cube {
+    width: 240px;
+    height: 240px;
+    margin-inline: auto;
+    border-radius: 0;
+    background-color: transparent;
+    border: none;
+  }
+
+  &--icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    flex-shrink: 0;
+
+    @include tablet {
+      width: 90px;
+      height: 90px;
+    }
+
+    @include desktop {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  &--cover {
+    border-radius: 0;
+  }
+
+  &--sns {
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.35);
+  }
+}
