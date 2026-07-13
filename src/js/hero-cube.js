@@ -1,8 +1,8 @@
 import cubeRight from '../assets/images/hero/home_visual_01@2x.jpg'
-import cubeLeft from '../assets/images/hero/home_visual_02@2x.jpg'
+import cubeFront from '../assets/images/hero/home_visual_02@2x.jpg'
 import cubeBottom from '../assets/images/hero/home_visual_03@2x.jpg'
 import cubeTop from '../assets/images/hero/home_visual_04@2x.jpg'
-import cubeFront from '../assets/images/hero/home_visual_06@2x.jpg'
+import cubeLeft from '../assets/images/hero/home_visual_06@2x.jpg'
 
 import { HERO_DESKTOP_QUERY } from './breakpoints.js'
 
