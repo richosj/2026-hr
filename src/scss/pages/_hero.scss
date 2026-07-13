@@ -3,12 +3,15 @@
 
 $hero-pearl: #FCFCFC;
 $hero-slate: #212121;
-$hero-cube-size: 320px;
-$hero-cube-size-desktop: 500px;
 
 body.page-hero {
   background-color: $hero-pearl;
   color: $hero-slate;
+  --hero-cube-size: #{$hero-cube-size};
+  --hero-cube-size-img: #{$hero-cube-size-img};
+  --hero-cube-size-desktop: #{$hero-cube-size-desktop};
+  --hero-cube-size-desktop-img: #{$hero-cube-size-desktop-img};
+  --hero-cube-end-size: #{$hero-cube-end-size};
 }
 
 .page-hero {
@@ -70,12 +73,14 @@ body.page-hero {
     flex-shrink: 0;
     width: $hero-cube-size;
     height: $hero-cube-size;
+    margin-inline: auto;
 
     @include hero-desktop {
       position: absolute;
       inset: 0;
       width: auto;
       height: auto;
+      margin-inline: 0;
     }
   }
 }
@@ -198,9 +203,8 @@ body.page-hero {
   justify-content: center;
   position: absolute;
   inset: 0;
-  width: auto;
-  height: auto;
   overflow: visible;
+  perspective: 100vh;
 
   &.is-traveling {
     position: fixed;
@@ -220,7 +224,7 @@ body.page-hero {
   position: relative;
   width: $hero-cube-size;
   height: $hero-cube-size;
-  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  transform: translate3d(0, 0, 0);
 
   @include hero-desktop {
     --cube-size: #{$hero-cube-size-desktop};

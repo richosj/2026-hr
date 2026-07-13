@@ -1,11 +1,12 @@
 @use 'base/mixins' as *;
 
-// 반응형 display 유틸리티
+// 반응형 display 유틸리티 (mobile-first)
 // m- : mobile (~759px) / t- : tablet (760–1279px) / d- : desktop (1280px+)
 //
-// 예) .d-none  → 데스크탑에서 숨김
-//     .m-block → 모바일에서만 block
-//     .t-only  → 태블릿에서만 표시
+// d-block  → 모바·태블릿 숨김, 데스크탑만 block  (<br> 데스크탑 전용 줄바꿈)
+// d-none   → 데스크탑만 숨김
+// m-block  → 모바일만 block
+// t-none   → 태블릿만 숨김
 
 $display-values: (
   none: none,
@@ -18,21 +19,47 @@ $display-values: (
 );
 
 @each $name, $value in $display-values {
-  .m-#{$name} {
-    @include mobile-only {
-      display: $value !important;
+  @if $name == 'none' {
+    .m-none {
+      @include mobile-only {
+        display: none !important;
+      }
     }
-  }
 
-  .t-#{$name} {
-    @include tablet-only {
-      display: $value !important;
+    .t-none {
+      @include tablet-only {
+        display: none !important;
+      }
     }
-  }
 
-  .d-#{$name} {
-    @include desktop {
-      display: $value !important;
+    .d-none {
+      @include desktop {
+        display: none !important;
+      }
+    }
+  } @else {
+    .m-#{$name} {
+      display: none !important;
+
+      @include mobile-only {
+        display: $value !important;
+      }
+    }
+
+    .t-#{$name} {
+      display: none !important;
+
+      @include tablet-only {
+        display: $value !important;
+      }
+    }
+
+    .d-#{$name} {
+      display: none !important;
+
+      @include desktop {
+        display: $value !important;
+      }
     }
   }
 }

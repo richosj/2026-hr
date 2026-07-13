@@ -2,10 +2,10 @@ import { HERO_DESKTOP_QUERY } from './breakpoints.js'
 import { resetHeroCubeRotation } from './hero-cube.js'
 import { getLenis, onScroll } from './smooth-scroll.js'
 
-const CUBE_END_SIZE = 240
 const DESKTOP_QUERY = HERO_DESKTOP_QUERY
-const DESKTOP_CUBE_SIZE = 500
-const MOBILE_CUBE_SIZE = 320
+const MOBILE_CUBE_VH = 0.25
+const DESKTOP_CUBE_VH = 0.35
+const CUBE_END_VH = 0.25
 const MORPH_PIN_START = 0.1
 const MORPH_PIN_END = 0.55
 const TRAVEL_OFF = 0.008
@@ -34,7 +34,6 @@ function getScrollY() {
 export function initIntroCubeScroll() {
   const cube = document.getElementById('heroCube')
   const cubeWrapper = document.querySelector('.cube-wrapper')
-  const heroComponent = document.getElementById('heroComponent')
   const heroStage = document.getElementById('heroStage')
   const intro = document.getElementById('intro-hss')
   const landing = document.getElementById('cubeLanding')
@@ -43,7 +42,7 @@ export function initIntroCubeScroll() {
   const heroCta = document.getElementById('heroCta')
   const cubeSlot = document.getElementById('heroCubeSlot')
 
-  if (!cube || !cubeWrapper || !heroComponent || !heroStage || !intro || !landing || !cubeSlot) return
+  if (!cube || !cubeWrapper || !heroStage || !intro || !landing || !cubeSlot) return
 
   const restNodes = morphTitle
     ? [...morphTitle.querySelectorAll('.morph-item__rest')]
@@ -52,28 +51,57 @@ export function initIntroCubeScroll() {
   let morphComplete = false
   let travelActive = false
   let smoothTravelT = 0
+  let heroAnchor = null
 
   const isDesktopLayout = () => window.matchMedia(DESKTOP_QUERY).matches
-  const getStartSize = () => (isDesktopLayout() ? DESKTOP_CUBE_SIZE : MOBILE_CUBE_SIZE)
 
-  const getHeroSlotRect = () => {
-    const size = getStartSize()
+  const getFallbackStartSize = () =>
+    window.innerHeight * (isDesktopLayout() ? DESKTOP_CUBE_VH : MOBILE_CUBE_VH)
+
+  const getFallbackEndSize = () => window.innerHeight * CUBE_END_VH
+
+  const measureStartSize = () => {
+    const width = cube.getBoundingClientRect().width
+    return width > 0 ? width : getFallbackStartSize()
+  }
+
+  const measureEndSize = () => {
+    const width = landing.getBoundingClientRect().width
+    return width > 0 ? width : getFallbackEndSize()
+  }
+
+  const captureHeroAnchor = () => {
+    const size = measureStartSize()
+
+    if (isDesktopLayout()) {
+      const cubeRect = cube.getBoundingClientRect()
+      heroAnchor = {
+        left: cubeRect.left,
+        top: cubeRect.top,
+        size: cubeRect.width > 0 ? cubeRect.width : size,
+      }
+      return heroAnchor
+    }
+
     const slotRect = cubeSlot.getBoundingClientRect()
-
-    return {
+    heroAnchor = {
       left: slotRect.left + (slotRect.width - size) / 2,
       top: slotRect.top + (slotRect.height - size) / 2,
       size,
     }
+    return heroAnchor
   }
 
+  const getHeroSlotRect = () => heroAnchor ?? captureHeroAnchor()
+
   const getLandingSlot = () => {
+    const size = measureEndSize()
     const landingRect = landing.getBoundingClientRect()
 
     return {
-      left: landingRect.left + (landingRect.width - CUBE_END_SIZE) / 2,
-      top: landingRect.top + (landingRect.height - CUBE_END_SIZE) / 2,
-      size: CUBE_END_SIZE,
+      left: landingRect.left + (landingRect.width - size) / 2,
+      top: landingRect.top + (landingRect.height - size) / 2,
+      size,
     }
   }
 
@@ -90,12 +118,12 @@ export function initIntroCubeScroll() {
 
   const resetCubeToHero = () => {
     travelActive = false
+    heroAnchor = null
     cubeWrapper.classList.remove('is-traveling')
     clearFlightStyles()
     resetHeroCubeRotation()
   }
 
-  /** viewport 기준 left/top/size만 갱신 — DOM은 절대 안 옮김 */
   const placeCube = (left, top, size) => {
     const px = Math.round(size)
 
@@ -114,7 +142,6 @@ export function initIntroCubeScroll() {
     cube.style.setProperty('--cube-size', `${px}px`)
   }
 
-  /** heroStage 하단을 넘지 않도록 fixed bottom만 clamp (모드 전환 없음 → 떨림 방지) */
   const updateCta = (stageRect, vh, accent) => {
     if (!heroCta) return
 
@@ -218,6 +245,10 @@ export function initIntroCubeScroll() {
       return
     }
 
+    if (!heroAnchor) {
+      captureHeroAnchor()
+    }
+
     const heroSlot = getHeroSlotRect()
     const landingSlot = getLandingSlot()
     const targetT = easeInOutCubic(travelT)
@@ -248,6 +279,7 @@ export function initIntroCubeScroll() {
 
   const onResize = () => {
     measureRestWidths()
+    heroAnchor = null
 
     if (getTravelT(intro.getBoundingClientRect(), window.innerHeight) <= TRAVEL_OFF) {
       resetIntroState()

@@ -10,8 +10,8 @@
   border-radius: 16px;
 
   &--cube {
-    width: 240px;
-    height: 240px;
+    width: $hero-cube-end-size;
+    height: $hero-cube-end-size;
     margin-inline: auto;
     border-radius: 0;
     background-color: transparent;

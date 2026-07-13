@@ -146,8 +146,8 @@
   &__visual {
     position: relative;
     z-index: 1;
-    width: 240px;
-    height: 240px;
+    width: $hero-cube-end-size;
+    height: $hero-cube-end-size;
     margin-top: 40px;
     margin-inline: auto;
   }

@@ -28,10 +28,8 @@
       linear-gradient($color-bg-white, $color-bg-white) padding-box,
       linear-gradient(
         90deg,
-        $color-btn-border 0%,
-        #7b61ff 42%,
-        #c44dff 58%,
-        $color-accent 100%
+        #2D78F5 0%,
+        #FF5C34 100%
       ) border-box;
     background-color: transparent;
 
@@ -42,10 +40,8 @@
         linear-gradient($color-bg-white, $color-bg-white) padding-box,
         linear-gradient(
           90deg,
-          $color-primary 0%,
-          #6d52ff 42%,
-          #b83dff 58%,
-          #ff4b19 100%
+          #2D78F5 0%,
+          #FF5C34 100%
         ) border-box;
     }
 
