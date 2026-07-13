@@ -1,0 +1,129 @@
+@use 'base/variables' as *;
+@use 'base/mixins' as *;
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  visibility: hidden;
+  pointer-events: none;
+
+  &.is-open {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  @include desktop {
+    display: none;
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+
+    .mobile-menu.is-open & {
+      opacity: 1;
+    }
+  }
+
+  &__nav {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding:
+      calc(#{$header-height} + 40px)
+      $container-padding
+      max(40px, env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+    @include tablet {
+      padding-inline: $container-padding-tablet;
+      padding-top: calc(80px + 48px);
+    }
+
+    .mobile-menu.is-open & {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity 0.35s ease,
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  }
+
+  &.is-open &__list li {
+    opacity: 1;
+    transform: translateY(0);
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) {
+        transition-delay: #{0.08 + $i * 0.06}s;
+      }
+    }
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    padding: 22px 0;
+    font-size: clamp(24px, 6.5vw, 32px);
+    font-weight: 700;
+    color: $color-text;
+    letter-spacing: -0.03em;
+    line-height: 1.35;
+    border-bottom: 1px solid rgba($color-border, 0.85);
+    transition: color 0.2s;
+
+    &:hover,
+    &:focus-visible {
+      color: $color-accent;
+    }
+
+    &--accent {
+      color: $color-text;
+    }
+  }
+
+  &__list li:last-child &__link {
+    border-bottom: 0;
+  }
+}
+
+html.is-menu-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+
+  body {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+  }
+}

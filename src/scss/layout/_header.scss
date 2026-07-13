@@ -4,10 +4,27 @@
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 400;
   width: 100%;
-  // background-color: rgba(255, 255, 255, 0.16);
-  // backdrop-filter: blur(8px);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  &.is-scrolled::before,
+  &.is-menu-open::before {
+    opacity: 1;
+  }
 
   &__inner {
     display: flex;
@@ -26,8 +43,6 @@
 
     @include desktop {
       padding-inline: 0;
-      padding-left: 0;
-      padding-right: 0;
       min-height: $header-height-desktop;
     }
   }
@@ -44,6 +59,7 @@
     width: 120px;
     height: 26px;
     background: url('/assets/images/logo.svg') no-repeat center center / contain;
+
     @include tablet {
       width: 160px;
       height: 35px;
@@ -55,11 +71,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    //width: 44px;
+    width: 44px;
     height: 44px;
 
     @include desktop {
       display: none;
+    }
+
+    &.is-open {
+      .header__menu-icon {
+        background-color: transparent;
+
+        &::before {
+          top: 0;
+          transform: rotate(45deg);
+        }
+
+        &::after {
+          top: 0;
+          transform: rotate(-45deg);
+        }
+      }
     }
   }
 
@@ -71,7 +103,10 @@
     height: 2px;
     background-color: $color-text;
     border-radius: 1px;
-    transition: transform 0.2s, opacity 0.2s;
+    transition:
+      transform 0.3s ease,
+      top 0.3s ease,
+      background-color 0.3s ease;
   }
 
   &__menu-icon {
@@ -94,51 +129,27 @@
   }
 
   &__nav {
-    @include desktop {
-      display: block;
-    }
-
     @media (max-width: #{$bp-desktop - 1px}) {
-      position: fixed;
-      inset: $header-height 0 auto 0;
       display: none;
-      padding: 16px $container-padding;
-      background-color: rgba(255, 255, 255, 0.96);
-      border-bottom: 1px solid $color-border;
-      backdrop-filter: blur(8px);
-
-      &.is-open {
-        display: block;
-      }
     }
   }
 
   &__menu {
     display: flex;
     gap: 0;
-
-    @media (max-width: #{$bp-desktop - 1px}) {
-      flex-direction: column;
-      gap: 4px;
-    }
   }
 
   &__link {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 8px;
-    font-size: 16px;
+    padding: 40px 30px;
+    font-size: 18px;
     font-weight: 500;
     color: $color-text;
     letter-spacing: -0.02em;
     line-height: 1.3;
     transition: color 0.2s;
-
-    @include desktop {
-      padding: 40px 30px;
-      font-size: 18px;
-    }
 
     &:hover,
     &:focus-visible {
@@ -147,7 +158,6 @@
 
     &--accent {
       font-weight: 600;
-      //color: $color-accent;
     }
   }
 }
