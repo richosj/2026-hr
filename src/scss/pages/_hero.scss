@@ -74,7 +74,7 @@ body.page-hero {
     width: $hero-cube-size;
     height: $hero-cube-size;
     margin-inline: auto;
-
+    z-index: 1;
     @include hero-desktop {
       position: absolute;
       inset: 0;
@@ -211,6 +211,7 @@ body.page-hero {
     inset: auto;
     z-index: 40;
     margin: 0;
+    perspective: 100vh;
     will-change: left, top, width, height;
   }
 }
