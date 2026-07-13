@@ -105,7 +105,8 @@ body.page-hero {
     z-index: 1;
     flex: 1;
     padding-bottom: 20px;
-
+    align-items: flex-start;
+    padding-top: 30px;
     @include hero-desktop {
       display: none;
     }
@@ -138,8 +139,9 @@ body.page-hero {
     color: $hero-slate;
 
     @include tablet {
-      font-size: 48px;
+      font-size: 56px;
     }
+    
   }
 
   @include hero-desktop {

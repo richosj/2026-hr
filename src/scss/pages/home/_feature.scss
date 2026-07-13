@@ -83,7 +83,8 @@
     }
 
     @include desktop {
-      min-height: 180px;
+      min-height: 0px;
+      margin-bottom: 60px;
     }
   }
 

@@ -1,0 +1,60 @@
+@use 'base/mixins' as *;
+
+// 반응형 display 유틸리티
+// m- : mobile (~759px) / t- : tablet (760–1279px) / d- : desktop (1280px+)
+//
+// 예) .d-none  → 데스크탑에서 숨김
+//     .m-block → 모바일에서만 block
+//     .t-only  → 태블릿에서만 표시
+
+$display-values: (
+  none: none,
+  block: block,
+  inline: inline,
+  inline-block: inline-block,
+  flex: flex,
+  inline-flex: inline-flex,
+  grid: grid,
+);
+
+@each $name, $value in $display-values {
+  .m-#{$name} {
+    @include mobile-only {
+      display: $value !important;
+    }
+  }
+
+  .t-#{$name} {
+    @include tablet-only {
+      display: $value !important;
+    }
+  }
+
+  .d-#{$name} {
+    @include desktop {
+      display: $value !important;
+    }
+  }
+}
+
+.m-only {
+  @include tablet {
+    display: none !important;
+  }
+}
+
+.t-only {
+  display: none !important;
+
+  @include tablet-only {
+    display: block !important;
+  }
+}
+
+.d-only {
+  display: none !important;
+
+  @include desktop {
+    display: block !important;
+  }
+}

@@ -71,7 +71,16 @@
 }
 
 // ── Message 02 (#message-detail) ──
-
+#message-detail{
+  .section__inner{
+    @include desktop {
+      padding-left: 20px;
+      padding-right: 20px;
+      max-width: 1440px;
+    }
+  }
+  
+}
 .section--message-detail {
   background: #ece5e6;
 
