@@ -81,11 +81,6 @@
     @include tablet {
       min-height: 160px;
     }
-
-    @include desktop {
-      min-height: 0px;
-      margin-bottom: 60px;
-    }
   }
 
   .feature__state {
