@@ -28,6 +28,7 @@
     }
     &:hover,
     &:focus-visible {
+      opacity: 1;
       background-color: #FF4B19;
       color: #fff;
       .btn__icon {

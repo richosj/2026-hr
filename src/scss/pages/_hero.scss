@@ -198,6 +198,17 @@ body.page-hero {
   &.is-white {
     .btn--apply {
       background-color: $color-bg-white;
+
+      &:hover,
+      &:focus-visible {
+        opacity: 1;
+        background-color: #ff4b19;
+        color: #fff;
+
+        .btn__icon {
+          background-image: url('@assets/images/hero/icon-arrow-right-white.svg');
+        }
+      }
     }
   }
 
