@@ -1,44 +1,50 @@
 @use 'variables' as *;
 
-@mixin tablet {
-  @media (min-width: $bp-tablet) {
-    @content;
-  }
-}
-
-@mixin desktop {
-  @media (min-width: $bp-desktop) {
-    @content;
-  }
-}
-
 @mixin mobile-only {
-  @media (max-width: #{$bp-tablet - 1px}) {
+  @media (max-width: $bp-mobile-max) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $bp-tablet-min) {
     @content;
   }
 }
 
 @mixin tablet-only {
-  @media (min-width: $bp-tablet) and (max-width: #{$bp-desktop - 1px}) {
+  @media (min-width: $bp-tablet-min) and (max-width: $bp-tablet-max) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $bp-desktop-min) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media (min-width: $bp-desktop-min) and (max-width: $bp-desktop-max) {
     @content;
   }
 }
 
 @mixin hero-mobile-tablet {
-  @media (max-width: #{$bp-hero-desktop - 1px}) {
+  @media (max-width: $bp-tablet-max) {
     @content;
   }
 }
 
 @mixin hero-desktop {
-  @media (min-width: $bp-hero-desktop) {
+  @media (min-width: $bp-desktop-min) {
     @content;
   }
 }
 
 // ── 패딩 (좌우 / 세로 분리 — inline·block 대신 이 이름만 사용) ──
 
-/// 좌우 컨테이너 여백 (모바일 24 → 태블릿 140 → 데스크탑 240)
+/// 좌우 컨테이너 여백 (모바일 24 → 태블릿 140 → PC 240)
 @mixin padding-x {
   padding-left: $container-padding;
   padding-right: $container-padding;

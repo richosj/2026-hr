@@ -1,16 +1,23 @@
-import { HERO_DESKTOP_QUERY } from './breakpoints.js'
-import { getLenis, onScroll } from './smooth-scroll.js'
+import { HERO_CUBE_LARGE_QUERY } from './breakpoints.js'
+import { onScroll } from './smooth-scroll.js'
 
-const DESKTOP_QUERY = HERO_DESKTOP_QUERY
+const CUBE_LARGE_QUERY = HERO_CUBE_LARGE_QUERY
 const MOBILE_CUBE_VH = 0.25
 const DESKTOP_CUBE_VH = 0.4
 const CUBE_END_VH = 0.25
-const MORPH_PIN_START = 0.1
-const MORPH_PIN_END = 0.55
+const MORPH_PIN_START = 0.08
+const MORPH_PIN_END = 0.62
+const SENSE_MORPH_START = 0.1
+const SENSE_MORPH_END = 0.78
+const SENS_MORPH_START = 0.28
+const SENS_MORPH_END = 0.62
 const TRAVEL_OFF = 0.008
-const FLIGHT_SMOOTH = 0.14
+const FLIGHT_START_VH = 1.1
+const FLIGHT_END_VH = 0.04
+const FLIGHT_SMOOTH = 0.1
 const RETURN_SMOOTH = 0.35
 const RETURN_DONE = 0.004
+const RETURN_SLOT_REVEAL = 0.35
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value))
@@ -24,8 +31,8 @@ function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
 }
 
-function getScrollY() {
-  return getLenis()?.scroll ?? window.scrollY ?? 0
+function easeOutCubic(t) {
+  return 1 - (1 - t) ** 3
 }
 
 /**
@@ -42,6 +49,8 @@ export function initIntroCubeScroll() {
   const morphTitle = document.getElementById('introMorphTitle')
   const heroCta = document.getElementById('heroCta')
   const cubeSlot = document.getElementById('heroCubeSlot')
+  const message = document.getElementById('message')
+  const sensibility = document.getElementById('sensibility')
 
   if (!cube || !cubeWrapper || !heroStage || !intro || !landing || !cubeSlot) return
 
@@ -53,10 +62,10 @@ export function initIntroCubeScroll() {
   let travelActive = false
   let smoothTravelT = 0
 
-  const isDesktopLayout = () => window.matchMedia(DESKTOP_QUERY).matches
+  const isLargeCube = () => window.matchMedia(CUBE_LARGE_QUERY).matches
 
   const getFallbackStartSize = () =>
-    window.innerHeight * (isDesktopLayout() ? DESKTOP_CUBE_VH : MOBILE_CUBE_VH)
+    window.innerHeight * (isLargeCube() ? DESKTOP_CUBE_VH : MOBILE_CUBE_VH)
 
   const getFallbackEndSize = () => window.innerHeight * CUBE_END_VH
 
@@ -77,7 +86,7 @@ export function initIntroCubeScroll() {
   }
 
   const getStartSize = () => {
-    const varName = isDesktopLayout() ? '--hero-cube-size-desktop' : '--hero-cube-size'
+    const varName = isLargeCube() ? '--hero-cube-size-desktop' : '--hero-cube-size'
     return readCssLength(document.body, varName, getFallbackStartSize())
   }
 
@@ -112,6 +121,7 @@ export function initIntroCubeScroll() {
     cube.style.width = ''
     cube.style.height = ''
     cube.style.removeProperty('--cube-size')
+    cube.style.removeProperty('--cube-half')
   }
 
   const finishReturnToHero = () => {
@@ -121,9 +131,12 @@ export function initIntroCubeScroll() {
     clearFlightStyles()
   }
 
-  const placeCube = (left, top, size) => {
-    const px = Math.round(size)
+  const syncRestingCube = () => {
+    if (travelActive || cubeWrapper.classList.contains('is-traveling')) return
+    clearFlightStyles()
+  }
 
+  const placeCube = (left, top, size) => {
     if (!travelActive) {
       travelActive = true
       cubeWrapper.classList.add('is-traveling')
@@ -131,27 +144,53 @@ export function initIntroCubeScroll() {
 
     cubeWrapper.style.left = `${left}px`
     cubeWrapper.style.top = `${top}px`
-    cubeWrapper.style.width = `${px}px`
-    cubeWrapper.style.height = `${px}px`
+    cubeWrapper.style.width = `${size}px`
+    cubeWrapper.style.height = `${size}px`
     cubeWrapper.style.transform = 'translate3d(0, 0, 0)'
-    cube.style.width = `${px}px`
-    cube.style.height = `${px}px`
-    cube.style.setProperty('--cube-size', `${px}px`)
+    cube.style.width = `${size}px`
+    cube.style.height = `${size}px`
+    cube.style.setProperty('--cube-size', `${size}px`)
+    cube.style.setProperty('--cube-half', `${size * 0.5}px`)
   }
 
-  const updateCta = (stageRect, vh, accent) => {
+  /** hero 슬롯이 화면 위로 벗어난 동안만 landing 쪽 유지 */
+  const getReturnMoveCap = (vh) => {
+    const slot = cubeSlot.getBoundingClientRect()
+
+    if (slot.bottom <= 0) return 1
+
+    const reveal = clamp(slot.bottom / (vh * RETURN_SLOT_REVEAL), 0, 1)
+    return 1 - easeOutCubic(reveal)
+  }
+
+  const canFinishReturn = (moveT, vh, travelT) => {
+    const slot = cubeSlot.getBoundingClientRect()
+    const heroVisible = slot.bottom > 0 && slot.top < vh
+
+    if (!heroVisible) return false
+    return moveT <= RETURN_DONE || travelT <= 0
+  }
+
+  const updateCta = (vh) => {
     if (!heroCta) return
 
-    if (stageRect.bottom <= 0) {
-      heroCta.classList.remove('is-active', 'is-accent')
+    const trackBottom = sensibility
+      ? sensibility.getBoundingClientRect().bottom
+      : heroStage.getBoundingClientRect().bottom
+
+    if (trackBottom <= 0) {
+      heroCta.classList.remove('is-active', 'is-white')
       heroCta.style.bottom = ''
       return
     }
 
-    const bottom = Math.max(0, Math.round(vh - stageRect.bottom))
+    const bottom = Math.max(0, Math.round(vh - trackBottom))
+    const useWhite = message
+      ? message.getBoundingClientRect().top <= vh * 0.92
+      : false
 
     heroCta.classList.add('is-active')
-    heroCta.classList.toggle('is-accent', accent)
+    heroCta.classList.toggle('is-white', useWhite)
     heroCta.style.bottom = `${bottom}px`
   }
 
@@ -162,36 +201,57 @@ export function initIntroCubeScroll() {
     morphTitle.classList.toggle('is-morph-complete', complete)
 
     if (complete) {
-      morphTitle.style.setProperty('--expand', '1')
+      morphTitle.style.setProperty('--expand-sense', '1')
+      morphTitle.style.setProperty('--expand-sensibility', '1')
       return
     }
 
-    morphTitle.style.removeProperty('--expand')
+    morphTitle.style.removeProperty('--expand-sense')
+    morphTitle.style.removeProperty('--expand-sensibility')
   }
 
-  const setText = (showTitle, expand) => {
+  const getSenseExpand = (pinProgress) =>
+    easeInOutCubic(
+      clamp((pinProgress - SENSE_MORPH_START) / (SENSE_MORPH_END - SENSE_MORPH_START), 0, 1),
+    )
+
+  const getSensExpand = (pinProgress) =>
+    easeInOutCubic(
+      clamp((pinProgress - SENS_MORPH_START) / (SENS_MORPH_END - SENS_MORPH_START), 0, 1),
+    )
+
+  const setMorphExpand = (pinProgress) => {
+    if (!morphTitle) return
+    morphTitle.style.setProperty('--expand-sense', String(getSenseExpand(pinProgress)))
+    morphTitle.style.setProperty('--expand-sensibility', String(getSensExpand(pinProgress)))
+  }
+
+  const setText = (showTitle) => {
     if (eyebrow) eyebrow.classList.toggle('is-visible', showTitle)
     if (!morphTitle || morphComplete) return
 
     morphTitle.classList.toggle('is-visible', showTitle)
-    morphTitle.style.setProperty('--expand', String(expand))
+    const senseExpand = parseFloat(morphTitle.style.getPropertyValue('--expand-sense') || '0')
+    const sensExpand = parseFloat(morphTitle.style.getPropertyValue('--expand-sensibility') || '0')
     morphTitle.setAttribute(
       'aria-label',
-      expand > 0.5 ? 'Human Sense, Sensibility' : 'HSS',
+      Math.max(senseExpand, sensExpand) > 0.5 ? 'Human Sense, Sensibility' : 'HSS',
     )
   }
 
   const getTravelT = (introRect, vh) => {
-    if (getScrollY() < 8) return 0
-
-    const flightStart = vh * 0.78
-    const flightEnd = vh * 0.22
+    const flightStart = vh * FLIGHT_START_VH
+    const flightEnd = vh * FLIGHT_END_VH
+    const flightRange = Math.max(1, flightStart - flightEnd)
 
     if (introRect.top >= flightStart) return 0
     if (introRect.top <= flightEnd) return 1
 
-    return clamp((flightStart - introRect.top) / (flightStart - flightEnd), 0, 1)
+    return clamp((flightStart - introRect.top) / flightRange, 0, 1)
   }
+
+  /** 스크롤 거리에 비례 — 하단으로 갈수록 가속되지 않게, 착지만 살짝 감속 */
+  const mapFlightProgress = (travelT) => easeOutCubic(travelT)
 
   const advanceTravelT = (targetT, atLanding = false) => {
     const smoothing = targetT < smoothTravelT ? RETURN_SMOOTH : FLIGHT_SMOOTH
@@ -204,32 +264,45 @@ export function initIntroCubeScroll() {
     return smoothTravelT
   }
 
-  const applyFlightTransform = (moveT) => {
+  const applyFlightTransform = (moveT, vh, isReturning) => {
     const heroSlot = getLiveHeroSlot()
     const landingSlot = getLandingSlot()
-    const left = lerp(heroSlot.left, landingSlot.left, moveT)
-    const top = lerp(heroSlot.top, landingSlot.top, moveT)
-    const size = lerp(heroSlot.size, landingSlot.size, moveT)
+    let effectiveMoveT = moveT
+
+    if (isReturning) {
+      const cap = getReturnMoveCap(vh)
+      effectiveMoveT = Math.max(moveT, cap)
+      if (effectiveMoveT > smoothTravelT) {
+        smoothTravelT = effectiveMoveT
+      }
+    }
+
+    const left = lerp(heroSlot.left, landingSlot.left, effectiveMoveT)
+    const top = lerp(heroSlot.top, landingSlot.top, effectiveMoveT)
+    const size = lerp(heroSlot.size, landingSlot.size, effectiveMoveT)
 
     placeCube(left, top, size)
+
+    return effectiveMoveT
   }
 
-  const updateMorphPhase = (expandEased, morphDone) => {
+  const updateMorphPhase = (pinProgress, morphDone) => {
+    setMorphExpand(pinProgress)
+
     if (morphDone) {
       if (!morphComplete) {
-        setText(true, 1)
+        setText(true)
         setMorphComplete(true)
       }
       return
     }
 
     if (morphComplete) setMorphComplete(false)
-    setText(true, expandEased)
+    setText(true)
   }
 
   const update = () => {
     const introRect = intro.getBoundingClientRect()
-    const stageRect = heroStage.getBoundingClientRect()
     const track = intro.querySelector('.intro-pin__track')
     const trackHeight = track ? track.offsetHeight : intro.offsetHeight
     const vh = window.innerHeight
@@ -244,62 +317,64 @@ export function initIntroCubeScroll() {
       0,
       1,
     )
-    const expandEased = easeInOutCubic(expand)
-    const morphDone = expand >= 1
-    const ctaAccent = travelT >= 1 || morphDone
+    const morphDone = pinProgress >= SENS_MORPH_END
 
     if (travelT <= TRAVEL_OFF) {
       if (travelActive) {
-        const targetT = easeInOutCubic(Math.max(travelT, 0))
+        const targetT = mapFlightProgress(Math.max(travelT, 0))
         const moveT = advanceTravelT(targetT)
-        applyFlightTransform(moveT)
+        const isReturning = true
+        const effectiveMoveT = applyFlightTransform(moveT, vh, isReturning)
 
-        if (moveT <= RETURN_DONE) {
+        if (canFinishReturn(effectiveMoveT, vh, travelT)) {
           finishReturnToHero()
         }
 
         if (morphComplete) {
           setMorphComplete(false)
-          setText(false, 0)
+          setText(false)
         }
 
-        updateCta(stageRect, vh, false)
+        updateCta(vh)
         return
       }
 
+      syncRestingCube()
+
       if (morphComplete) {
         setMorphComplete(false)
-        setText(false, 0)
+        setText(false)
       }
 
-      updateCta(stageRect, vh, false)
+      updateCta(vh)
       return
     }
 
-    const targetT = easeInOutCubic(travelT)
+    const targetT = mapFlightProgress(travelT)
+    const isReturning = targetT < smoothTravelT - 0.0005
     const moveT = advanceTravelT(targetT, travelT >= 1)
-    applyFlightTransform(moveT)
+    applyFlightTransform(moveT, vh, isReturning)
 
     if (travelT >= 1) {
-      updateMorphPhase(expandEased, morphDone)
-      updateCta(stageRect, vh, ctaAccent)
+      updateMorphPhase(pinProgress, morphDone)
+      updateCta(vh)
       return
     }
 
     if (morphComplete) setMorphComplete(false)
-    setText(false, 0)
-    updateCta(stageRect, vh, ctaAccent)
+    setText(false)
+    updateCta(vh)
   }
 
   const onResize = () => {
     measureRestWidths()
 
     if (getTravelT(intro.getBoundingClientRect(), window.innerHeight) <= TRAVEL_OFF) {
-      if (travelActive) {
+      if (travelActive && canFinishReturn(smoothTravelT, window.innerHeight, 0)) {
         finishReturnToHero()
       }
       setMorphComplete(false)
-      setText(false, 0)
+      setText(false)
     }
 
     update()
@@ -308,13 +383,15 @@ export function initIntroCubeScroll() {
   const measureRestWidths = () => {
     if (!morphTitle || restNodes.length === 0) return
 
-    const prevExpand = morphTitle.style.getPropertyValue('--expand')
+    const prevExpandSense = morphTitle.style.getPropertyValue('--expand-sense')
+    const prevExpandSens = morphTitle.style.getPropertyValue('--expand-sensibility')
     const wasVisible = morphTitle.classList.contains('is-visible')
     const wasComplete = morphTitle.classList.contains('is-morph-complete')
 
     morphTitle.classList.add('is-visible', 'is-measuring')
     morphTitle.classList.remove('is-morph-complete')
-    morphTitle.style.setProperty('--expand', '1')
+    morphTitle.style.setProperty('--expand-sense', '1')
+    morphTitle.style.setProperty('--expand-sensibility', '1')
 
     restNodes.forEach((el) => {
       el.style.maxWidth = 'none'
@@ -329,15 +406,17 @@ export function initIntroCubeScroll() {
     morphTitle.classList.toggle('is-visible', wasVisible)
     morphTitle.classList.toggle('is-morph-complete', wasComplete)
 
-    if (prevExpand) {
-      morphTitle.style.setProperty('--expand', prevExpand)
+    if (prevExpandSense || prevExpandSens) {
+      if (prevExpandSense) morphTitle.style.setProperty('--expand-sense', prevExpandSense)
+      if (prevExpandSens) morphTitle.style.setProperty('--expand-sensibility', prevExpandSens)
     } else {
-      morphTitle.style.removeProperty('--expand')
+      morphTitle.style.removeProperty('--expand-sense')
+      morphTitle.style.removeProperty('--expand-sensibility')
     }
   }
 
   measureRestWidths()
-  smoothTravelT = easeInOutCubic(getTravelT(intro.getBoundingClientRect(), window.innerHeight))
+  smoothTravelT = mapFlightProgress(getTravelT(intro.getBoundingClientRect(), window.innerHeight))
 
   if (document.fonts?.ready) {
     document.fonts.ready.then(measureRestWidths)
@@ -348,7 +427,7 @@ export function initIntroCubeScroll() {
 
   window.addEventListener('resize', onResize)
   window.addEventListener('load', () => {
-    smoothTravelT = easeInOutCubic(getTravelT(intro.getBoundingClientRect(), window.innerHeight))
+    smoothTravelT = mapFlightProgress(getTravelT(intro.getBoundingClientRect(), window.innerHeight))
     update()
   })
 }

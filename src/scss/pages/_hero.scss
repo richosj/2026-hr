@@ -43,7 +43,7 @@ body.page-hero {
   margin-inline: auto;
 }
 
-// ~1269: 큐브 상단 + 타이틀 스택 / 1270+: PC exclusion 오버레이
+// Mobile·Tablet (800–1269): 큐브 상단 + 타이틀 스택 / PC (1270+): exclusion 오버레이
 .hero-component {
   display: flex;
   align-items: center;
@@ -63,8 +63,7 @@ body.page-hero {
   }
 
   @include hero-desktop {
-    min-height: calc(100vh - 180px);
-    min-height: calc(100dvh - 180px);
+    min-height: calc(100dvh - #{$header-height-desktop});
     padding-block: 0;
   }
 
@@ -75,6 +74,12 @@ body.page-hero {
     height: $hero-cube-size;
     margin-inline: auto;
     z-index: 1;
+
+    @include tablet {
+      width: $hero-cube-size-desktop;
+      height: $hero-cube-size-desktop;
+    }
+
     @include hero-desktop {
       position: absolute;
       inset: 0;
@@ -180,7 +185,7 @@ body.page-hero {
   @include desktop {
     padding-left: 0;
     padding-right: 0;
-    max-width: $container-max-width;
+    max-width: 1440px;
     margin-inline: auto;
   }
 
@@ -188,6 +193,12 @@ body.page-hero {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+  }
+
+  &.is-white {
+    .btn--apply {
+      background-color: $color-bg-white;
+    }
   }
 
   .section-cta {
@@ -205,6 +216,7 @@ body.page-hero {
   inset: 0;
   overflow: visible;
   perspective: 100vh;
+  perspective-origin: 50% 46%;
 
   &.is-traveling {
     position: fixed;
@@ -212,25 +224,26 @@ body.page-hero {
     z-index: 40;
     margin: 0;
     perspective: 100vh;
+    perspective-origin: 50% 46%;
     will-change: left, top, width, height;
   }
 }
 
 .cube {
   --cube-size: #{$hero-cube-size};
-  --cube-depth: calc(var(--cube-size) * 0.5);
+  --cube-half: calc(var(--cube-size) * 0.5);
   transform-origin: 50% 50%;
   transform-style: preserve-3d;
-  display: flex;
   position: relative;
   width: $hero-cube-size;
   height: $hero-cube-size;
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(0, -2%, 0);
 
-  @include hero-desktop {
+  @include tablet {
     --cube-size: #{$hero-cube-size-desktop};
     width: $hero-cube-size-desktop;
     height: $hero-cube-size-desktop;
+    transform: translate3d(0, -3%, 0);
   }
 }
 
@@ -240,7 +253,8 @@ body.page-hero {
 .cube-left,
 .cube-top,
 .cube-bottom {
-  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   background-color: #ffffff0d;
   position: absolute;
   inset: 0;
@@ -248,9 +262,6 @@ body.page-hero {
   overflow: hidden;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   img {
     width: 100%;
@@ -262,32 +273,27 @@ body.page-hero {
 }
 
 .cube-front {
-  z-index: 2;
-  transform: translate3d(0, 0, var(--cube-depth));
+  transform: rotateY(0deg) translateZ(var(--cube-half));
 }
 
 .cube-back {
-  transform: translate3d(0, 0, calc(var(--cube-depth) * -0.6));
+  transform: rotateY(180deg) translateZ(var(--cube-half));
 }
 
 .cube-right {
-  transform-origin: 100% 50%;
-  transform: translate3d(0, 0, var(--cube-depth)) rotateY(-90deg);
+  transform: rotateY(90deg) translateZ(var(--cube-half));
 }
 
 .cube-left {
-  transform-origin: 0% 50%;
-  transform: translate3d(0, 0, var(--cube-depth)) rotateY(90deg);
+  transform: rotateY(-90deg) translateZ(var(--cube-half));
 }
 
 .cube-top {
-  transform-origin: 50% 0%;
-  transform: translate3d(0, 0, var(--cube-depth)) rotateX(-90deg);
+  transform: rotateX(90deg) translateZ(var(--cube-half));
 }
 
 .cube-bottom {
-  transform-origin: 50% 100%;
-  transform: translate3d(0, 0, var(--cube-depth)) rotateX(90deg);
+  transform: rotateX(-90deg) translateZ(var(--cube-half));
 }
 
 .flip-vertical {

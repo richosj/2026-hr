@@ -1,10 +1,18 @@
-// Breakpoints (mobile-first)
-// mobile: ~759 / tablet: 760–1279 / site desktop: 1280+
-// hero PC overlay: 1270+ (큐브 위 타이틀 오버레이)
-$bp-tablet: 760px;
-$bp-hero-desktop: 1270px;
-$bp-desktop: 1280px;
-$bp-wide: 1440px;
+// Breakpoints
+// Mobile:  375–799
+// Tablet:  800–1269
+// PC:      1270–1920
+$bp-mobile-min: 375px;
+$bp-mobile-max: 799px;
+$bp-tablet-min: 800px;
+$bp-tablet-max: 1269px;
+$bp-desktop-min: 1270px;
+$bp-desktop-max: 1920px;
+
+// mobile-first min-width aliases
+$bp-tablet: $bp-tablet-min;
+$bp-desktop: $bp-desktop-min;
+$bp-hero-desktop: $bp-desktop-min;
 
 // Colors
 $color-bg: #fcfcfc;
@@ -22,7 +30,7 @@ $color-border: #dce3f0;
 $color-btn-border: #2d78f5;
 
 // Layout
-$container-max-width: 1440px;
+$container-max-width: 1920px;
 $container-padding: 24px;
 $container-padding-tablet: 140px;
 $container-padding-desktop: 240px;
@@ -30,7 +38,6 @@ $header-height: 60px;
 $header-height-desktop: 100px;
 
 // Hero cube (vh — intro-cube-scroll.js는 DOM 크기와 동기)
-// PC face: 1920×1080 기준 500px → calc(100vh * 500 / 1080) ≈ 46.3vh
 $hero-cube-size: 25vh;
 $hero-cube-size-img: 25vh;
 $hero-cube-size-desktop: 40vh;
@@ -38,7 +45,6 @@ $hero-cube-size-desktop-img: 40vh;
 $hero-cube-size-sm: 25vh;
 $hero-cube-size-sm-img: 25vh;
 $hero-cube-end-size: 25vh;
-$bp-cube-sm: 479px;
 
 // Typography
 $font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

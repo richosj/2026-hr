@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        {{!-- PC(1270+): exclusion 오버레이 타이틀 --}}
+        {{!-- PC (1270+): exclusion 오버레이 타이틀 --}}
         <div class="home-2-hero home-2-hero--desktop">
           <h1 class="home-hero-heading blending">
             <span class="home-hero-heading__line">AI시대,</span>
@@ -36,7 +36,7 @@
           </h1>
         </div>
 
-        {{!-- 모바일·태블릿(~1269): 큐브 아래 스택 타이틀 --}}
+        {{!-- Mobile·Tablet (~1269): 큐브 아래 스택 타이틀 --}}
         <div class="home-2-hero home-2-hero--mobile">
           <h1 class="home-hero-heading home-hero-heading--mobile">
             <span class="home-hero-heading__line">AI시대,</span>
@@ -98,7 +98,6 @@
         그리고 타인의 마음을 읽는 감성 <strong class="text-sensibility">Sensibility</strong>
       </p>
     </div>
-    {{> cta-apply variant="white"}}
   </div>
 </section>
 
@@ -131,67 +130,66 @@
         <img src="./src/assets/images/hero/home_message_03@2x.jpg" alt="" loading="lazy" decoding="async" />
       </div>
     </div>
-    {{> cta-apply variant="white"}}
   </div>
 </section>
 
-{{!-- Human Sense → Sensibility (scroll pin + flip) --}}
-<section class="section section--feature-pin" id="human-sense">
-  <div class="feature-pin__track">
-    <div class="feature-pin__sticky">
-      <div class="section__inner section__inner--feature-pin">
-        <div class="feature feature--scroll" id="featureScroll">
-          <header class="feature__head">
-            <div class="feature__state feature__state--sense" data-feature-head="sense">
-              <p class="feature__label feature__label--sense">Human Sense</p>
-              <h2 class="feature__title">질문하는 이성</h2>
-            </div>
-            <div class="feature__state feature__state--sensibility" id="sensibility" data-feature-head="sensibility">
-              <p class="feature__label feature__label--sensibility">Sensibility</p>
-              <h2 class="feature__title">공감하는 감성</h2>
-            </div>
-          </header>
+{{!-- Human Sense --}}
+<section class="section section--feature section--feature-sense" id="human-sense">
+  <div class="section__inner section__inner--feature">
+    <div class="feature">
+      <header class="feature__head">
+        <p class="feature__label feature__label--sense">Human Sense</p>
+        <h2 class="feature__title">질문하는 이성</h2>
+      </header>
 
-          <div class="feature__cards">
-            <div class="feature-card-slot">
-              <article class="feature-card feature-card--flip" data-feature-card="sense" data-card-index="0">
-                <div class="feature-card__icon" aria-hidden="true">
-                  <img src="./src/assets/images/hero/icon-human-sense.svg" alt="" loading="lazy" decoding="async" />
-                </div>
-                <p class="feature-card__text">
-                  AI가 순식간에 답을 내놓는 시대 <br class="d-block" />진짜 차별화는 <br class="d-block" /><strong>‘무엇을, 왜 질문하는가’</strong>에 달렸습니다.
-                </p>
-              </article>
-              <article class="feature-card feature-card--flip" data-feature-card="sensibility" data-card-index="0">
-                <div class="feature-card__icon" aria-hidden="true">
-                  <img src="./src/assets/images/hero/icon-sensibility.svg" alt="" loading="lazy" decoding="async" />
-                </div>
-                <p class="feature-card__text">
-                  디지털 환경이 고도화될수록 <br class="d-block" />구성원들이 느끼는 고립감과 <br class="d-block" /><strong>기술의 차가움</strong>은 커져만 갑니다.
-                </p>
-              </article>
-            </div>
-            <div class="feature-card-slot">
-              <article class="feature-card feature-card--flip" data-feature-card="sense" data-card-index="1">
-                <div class="feature-card__icon" aria-hidden="true">
-                  <img src="./src/assets/images/hero/icon-human-sense-2.svg" alt="" loading="lazy" decoding="async" />
-                </div>
-                <p class="feature-card__text">
-                  날카로운 질문으로 <br class="d-block" />기술을 통제하고 핵심을 쥐는 <br class="d-block" /><strong>생각의 주도권</strong>을 가져야 합니다.
-                </p>
-              </article>
-              <article class="feature-card feature-card--flip" data-feature-card="sensibility" data-card-index="1">
-                <div class="feature-card__icon" aria-hidden="true">
-                  <img src="./src/assets/images/hero/icon-sensibility-2.svg" alt="" loading="lazy" decoding="async" />
-                </div>
-                <p class="feature-card__text">
-                  기술이 대체할 수 없는 인간 고유의 <br class="d-block" />온기, 즉 동료와의 <strong>공감, 소통 그리고 <br class="d-block" />유대감</strong>은 여전히 중요합니다.
-                </p>
-              </article>
-            </div>
+      <div class="feature__cards">
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">
+            <img src="./src/assets/images/hero/icon-human-sense.svg" alt="" loading="lazy" decoding="async" />
           </div>
-        </div>
-        {{> cta-apply variant="white"}}
+          <p class="feature-card__text">
+            AI가 순식간에 답을 내놓는 시대 <br class="d-block" />진짜 차별화는 <br class="d-block" /><strong>‘무엇을, 왜 질문하는가’</strong>에 달렸습니다.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">
+            <img src="./src/assets/images/hero/icon-human-sense-2.svg" alt="" loading="lazy" decoding="async" />
+          </div>
+          <p class="feature-card__text">
+            날카로운 질문으로 <br class="d-block" />기술을 통제하고 핵심을 쥐는 <br class="d-block" /><strong>생각의 주도권</strong>을 가져야 합니다.
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{!-- Sensibility --}}
+<section class="section section--feature section--feature-sensibility" id="sensibility">
+  <div class="section__inner section__inner--feature">
+    <div class="feature">
+      <header class="feature__head">
+        <p class="feature__label feature__label--sensibility">Sensibility</p>
+        <h2 class="feature__title">공감하는 감성</h2>
+      </header>
+
+      <div class="feature__cards">
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">
+            <img src="./src/assets/images/hero/icon-sensibility.svg" alt="" loading="lazy" decoding="async" />
+          </div>
+          <p class="feature-card__text">
+            디지털 환경이 고도화될수록 <br class="d-block" />구성원들이 느끼는 고립감과 <br class="d-block" /><strong>기술의 차가움</strong>은 커져만 갑니다.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">
+            <img src="./src/assets/images/hero/icon-sensibility-2.svg" alt="" loading="lazy" decoding="async" />
+          </div>
+          <p class="feature-card__text">
+            기술이 대체할 수 없는 인간 고유의 <br class="d-block" />온기, 즉 동료와의 <strong>공감, 소통 그리고 <br class="d-block" />유대감</strong>은 여전히 중요합니다.
+          </p>
+        </article>
       </div>
     </div>
   </div>

@@ -1,6 +1,14 @@
 @use 'base/variables' as *;
 @use 'base/mixins' as *;
 
+$message-char-ghost-opacity: 0.22;
+$message-body-gradient: linear-gradient(180deg, #ffffff 0%, #efedf0 50%, #f4f1f2 100%);
+
+body.is-message-bg {
+  //background: $message-body-gradient;
+  background: url('@assets/images/hero/home_message_01@2x.png') repeat-y center center;
+}
+
 // ── Message 01 (#message) ──
 
 .section--message {
@@ -53,6 +61,36 @@
     font-size: 20px;
   }
 
+  &__line {
+    margin: 0;
+  }
+
+  &__line + &__line {
+    margin-top: 16px;
+  }
+
+  &__split {
+    display: inline;
+    width: 100%;
+  }
+
+  .words.chars.splitting {
+    display: inline;
+  }
+
+  .word {
+    display: inline;
+  }
+
+  .char {
+    display: inline;
+    opacity: calc(#{$message-char-ghost-opacity} + (1 - #{$message-char-ghost-opacity}) * var(--reveal, 0));
+  }
+
+  &__split strong {
+    font-weight: 600;
+  }
+
   p + p {
     margin-top: 16px;
   }
@@ -74,8 +112,8 @@
 #message-detail{
   .section__inner{
     @include desktop {
-      padding-left: 20px;
-      padding-right: 20px;
+      padding-left: 24px;
+      padding-right: 24px;
       max-width: 1440px;
     }
   }

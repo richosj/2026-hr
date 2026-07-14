@@ -1,13 +1,14 @@
-import cubeRight from '../assets/images/hero/home_visual_01@2x.jpg'
+import cubeLeft from '../assets/images/hero/home_visual_01@2x.jpg'
 import cubeFront from '../assets/images/hero/home_visual_02@2x.jpg'
-import cubeBottom from '../assets/images/hero/home_visual_03@2x.jpg'
-import cubeTop from '../assets/images/hero/home_visual_04@2x.jpg'
-import cubeLeft from '../assets/images/hero/home_visual_06@2x.jpg'
+import cubeRight from '../assets/images/hero/home_visual_04@2x.jpg'
+import cubeTop from '../assets/images/hero/home_visual_05@2x.jpg'
+import cubeBottom from '../assets/images/hero/home_visual_06@2x.jpg'
 
-import { HERO_DESKTOP_QUERY } from './breakpoints.js'
+import { HERO_CUBE_LARGE_QUERY, HERO_DESKTOP_QUERY } from './breakpoints.js'
 
 const DESKTOP_QUERY = HERO_DESKTOP_QUERY
-const ROTATION_RANGE = 80
+const CUBE_LARGE_QUERY = HERO_CUBE_LARGE_QUERY
+const ROTATION_RANGE = 55
 const DESKTOP_SMOOTHING = 0.035
 
 // 모바일 자동 회전
@@ -35,9 +36,18 @@ function easeInOut(t) {
   return t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2
 }
 
+const OPTICAL_Y = {
+  mobile: -0.02,
+  desktop: -0.03,
+}
+
 function applyRotation() {
   if (!cubeElement) return
-  cubeElement.style.transform = `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(${currentX}deg) rotateY(${currentY}deg) rotateZ(0deg) skew(0deg, 0deg)`
+
+  const isLargeCube = window.matchMedia(CUBE_LARGE_QUERY).matches
+  const opticalY = isLargeCube ? OPTICAL_Y.desktop : OPTICAL_Y.mobile
+
+  cubeElement.style.transform = `translate3d(0, ${opticalY * 100}%, 0) scale3d(1, 1, 1) rotateX(${currentX}deg) rotateY(${currentY}deg) rotateZ(0deg)`
 }
 
 /** intro 스크롤 비행 중 / hero 복귀 시 회전 리셋 */

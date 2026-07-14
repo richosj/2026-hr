@@ -3,8 +3,9 @@ import '@noonnu/hangeul-nuri-bold/index.css'
 import '../scss/main.scss'
 import { initHero } from './hero-cube.js'
 import { initIntroCubeScroll } from './intro-cube-scroll.js'
-import { initFeatureScroll } from './feature-scroll.js'
+import { initMessageScrollReveal } from './message-scroll-reveal.js'
 import { initSmoothScroll, scrollToTop, getLenis, onScroll } from './smooth-scroll.js'
+import { BP_DESKTOP_MIN } from './breakpoints.js'
 
 function initHeaderScroll() {
   const header = document.getElementById('header')
@@ -83,7 +84,7 @@ function initMobileMenu() {
   })
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth >= 1280 && mobileMenu.classList.contains('is-open')) {
+    if (window.innerWidth >= BP_DESKTOP_MIN && mobileMenu.classList.contains('is-open')) {
       setOpen(false)
     }
   })
@@ -116,5 +117,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initTopButton()
   initHero()
   initIntroCubeScroll()
-  initFeatureScroll()
+  initMessageScrollReveal()
 })

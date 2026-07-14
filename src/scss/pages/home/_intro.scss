@@ -1,4 +1,4 @@
-﻿@use 'base/variables' as *;
+@use 'base/variables' as *;
 @use 'base/mixins' as *;
 
 // ── Intro pin (#intro-hss) ──
@@ -13,7 +13,7 @@
 .intro-pin {
   &__track {
     position: relative;
-    height: 200vh;
+    height: 300vh;
   }
 
   &__sticky {
@@ -105,7 +105,8 @@
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.45s ease, transform 0.45s ease;
-      --expand: 0;
+      --expand-sense: 0;
+      --expand-sensibility: 0;
 
       @include tablet {
         font-size: 58px;
@@ -115,7 +116,7 @@
         font-size: 64px;
       }
 
-      @media (max-width: #{$bp-tablet - 1px}) {
+      @include mobile-only {
         min-height: 84px;
       }
 
@@ -125,7 +126,8 @@
       }
 
       &.is-morph-complete {
-        --expand: 1;
+        --expand-sense: 1;
+        --expand-sensibility: 1;
 
         .morph-item__rest {
           max-width: none;
@@ -150,6 +152,9 @@
     height: $hero-cube-end-size;
     margin-top: 40px;
     margin-inline: auto;
+    @include desktop {
+      margin-top: 90px;
+    }
   }
 }
 
@@ -159,8 +164,13 @@
   white-space: nowrap;
 
   &--sense {
-    .morph-item__initial,
+    .morph-item__initial {
+      color: #1e6bff;
+    }
+
     .morph-item__rest {
+      max-width: calc(var(--expand-sense, 0) * var(--rest-width, 0px));
+      opacity: var(--expand-sense, 0);
       background: linear-gradient(90deg, #1e6bff, #46a6ff);
       -webkit-background-clip: text;
       background-clip: text;
@@ -169,8 +179,13 @@
   }
 
   &--sensibility {
-    .morph-item__initial,
+    .morph-item__initial {
+      color: #ff5c34;
+    }
+
     .morph-item__rest {
+      max-width: calc(var(--expand-sensibility, 0) * var(--rest-width, 0px));
+      opacity: var(--expand-sensibility, 0);
       background: linear-gradient(90deg, #ffa245, #ff5c34);
       -webkit-background-clip: text;
       background-clip: text;
@@ -185,8 +200,6 @@
   &__rest {
     display: inline-block;
     overflow: hidden;
-    max-width: calc(var(--expand, 0) * var(--rest-width, 0px));
-    opacity: var(--expand, 0);
     white-space: nowrap;
     vertical-align: bottom;
   }

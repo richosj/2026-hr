@@ -1,7 +1,7 @@
 @use 'base/mixins' as *;
 
 // 반응형 display 유틸리티 (mobile-first)
-// m- : mobile (~759px) / t- : tablet (760–1279px) / d- : desktop (1280px+)
+// m- : mobile (375–799) / t- : tablet (800–1269) / d- : PC (1270+)
 //
 // d-block  → 모바·태블릿 숨김, 데스크탑만 block  (<br> 데스크탑 전용 줄바꿈)
 // d-none   → 데스크탑만 숨김
