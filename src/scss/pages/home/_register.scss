@@ -1,12 +1,6 @@
 @use 'base/variables' as *;
 @use 'base/mixins' as *;
 
-@keyframes register-btn-gradient-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 // ── Register (#apply) ──
 
 .section--register {
@@ -29,45 +23,19 @@
 
   > .btn {
     position: relative;
-    z-index: 0;
-    isolation: isolate;
     overflow: hidden;
-    border: 2px solid transparent;
+    border: 0;
     border-radius: 10px;
     background-color: $color-bg-white;
 
-    &::before {
-      content: '';
-      position: absolute;
-      inset: -150%;
-      z-index: -2;
-      background: conic-gradient(from 90deg, #2d78f5, #ff5c34, #2d78f5);
-      transform: rotate(0deg);
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      z-index: -1;
-      border-radius: 12px;
-      background-color: $color-bg-white;
+    > span {
+      position: relative;
+      z-index: 1;
     }
 
     &:hover,
     &:focus-visible {
       opacity: 1;
-
-      &::before {
-        animation: register-btn-gradient-spin 2.5s linear infinite;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      &:hover::before,
-      &:focus-visible::before {
-        animation: none;
-      }
     }
 
     @include tablet {
@@ -75,11 +43,17 @@
       font-size: 20px;
       gap: 8px;
       border-radius: 12px;
-
-      &::after {
-        border-radius: 10px;
-      }
     }
+  }
+}
+
+.register-btn {
+  &__border {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
 }
 

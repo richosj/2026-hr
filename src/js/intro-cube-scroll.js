@@ -1,21 +1,26 @@
-import { HERO_CUBE_LARGE_QUERY } from './breakpoints.js'
+import { HERO_CUBE_LARGE_QUERY, HERO_DESKTOP_QUERY } from './breakpoints.js'
 import { onScroll } from './smooth-scroll.js'
 
 const CUBE_LARGE_QUERY = HERO_CUBE_LARGE_QUERY
+const DESKTOP_QUERY = HERO_DESKTOP_QUERY
 const MOBILE_CUBE_VH = 0.25
 const DESKTOP_CUBE_VH = 0.4
 const CUBE_END_VH = 0.25
 const MORPH_PIN_START = 0.08
 const MORPH_PIN_END = 0.62
-const SENSE_MORPH_START = 0.1
+const SENSE_MORPH_START = 0.07
 const SENSE_MORPH_END = 0.78
-const SENS_MORPH_START = 0.28
+const SENS_MORPH_START = 0.196
 const SENS_MORPH_END = 0.62
 const TRAVEL_OFF = 0.008
 const FLIGHT_START_VH = 1.1
 const FLIGHT_END_VH = 0.04
-// 큐브 이동 진행률 기준 텍스트 등장 시점: 0.7 = 도착 30% 전
-const TEXT_REVEAL_MOVE_T = 0.7
+// 스크롤 비행 진행률 기준 텍스트 등장 시점: 0.7 = 도착 30% 전
+const TEXT_REVEAL_TRAVEL_T = 0.7
+// PC hero 제목이 화면 상단에 이 비율만 남으면 intro 텍스트 등장 준비
+const DESKTOP_HEADING_REMAINING_RATIO = 0.2
+// intro 텍스트가 뷰포트 하단 이 지점에 들어오면 fade 시작
+const INTRO_TEXT_VIEWPORT_REVEAL_RATIO = 0.9
 const FLIGHT_SMOOTH = 0.1
 const RETURN_SMOOTH = 0.35
 const RETURN_DONE = 0.004
@@ -53,6 +58,9 @@ export function initIntroCubeScroll() {
   const cubeSlot = document.getElementById('heroCubeSlot')
   const message = document.getElementById('message')
   const sensibility = document.getElementById('sensibility')
+  const desktopHeroHeading = document.querySelector(
+    '.home-2-hero--desktop .home-hero-heading',
+  )
 
   if (!cube || !cubeWrapper || !heroStage || !intro || !landing || !cubeSlot) return
 
@@ -242,6 +250,24 @@ export function initIntroCubeScroll() {
     )
   }
 
+  const shouldShowIntroText = (travelT, vh) => {
+    const titleInRevealZone = morphTitle
+      ? morphTitle.getBoundingClientRect().top <= vh * INTRO_TEXT_VIEWPORT_REVEAL_RATIO
+      : true
+
+    if (window.matchMedia(DESKTOP_QUERY).matches && desktopHeroHeading) {
+      const rect = desktopHeroHeading.getBoundingClientRect()
+      if (rect.height > 0) {
+        const remainingHeight = clamp(rect.bottom, 0, rect.height)
+        const heroHeadingReady =
+          remainingHeight <= rect.height * DESKTOP_HEADING_REMAINING_RATIO
+        return heroHeadingReady && titleInRevealZone
+      }
+    }
+
+    return travelT >= TEXT_REVEAL_TRAVEL_T && titleInRevealZone
+  }
+
   const getTravelT = (introRect, vh) => {
     const flightStart = vh * FLIGHT_START_VH
     const flightEnd = vh * FLIGHT_END_VH
@@ -356,7 +382,7 @@ export function initIntroCubeScroll() {
     const targetT = mapFlightProgress(travelT)
     const isReturning = targetT < smoothTravelT - 0.0005
     const moveT = advanceTravelT(targetT, travelT >= 1)
-    const effectiveMoveT = applyFlightTransform(moveT, vh, isReturning)
+    applyFlightTransform(moveT, vh, isReturning)
 
     if (travelT >= 1) {
       updateMorphPhase(pinProgress, morphDone)
@@ -366,7 +392,7 @@ export function initIntroCubeScroll() {
 
     if (morphComplete) setMorphComplete(false)
     setMorphExpand(0)
-    setText(effectiveMoveT >= TEXT_REVEAL_MOVE_T)
+    setText(shouldShowIntroText(travelT, vh))
     updateCta(vh)
   }
 

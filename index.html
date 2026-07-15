@@ -202,7 +202,47 @@
       <span class="register__line">이성으로 주도하고 감성으로 연결하라!</span>
       <span class="register__line register__line--bold">AI시대, 가장 필요한 HRD의 과제입니다.</span>
     </h2>
-    <a href="#apply" class="btn">
+    <a href="#apply" class="btn register-btn" id="registerApplyButton">
+      <svg
+        class="register-btn__border"
+        viewBox="0 0 173 72"
+        preserveAspectRatio="none"
+        fill="none"
+        aria-hidden="true"
+      >
+        <rect
+          x="2.5"
+          y="2.5"
+          width="168"
+          height="67"
+          rx="12.5"
+          stroke="url(#registerButtonGradient)"
+          stroke-width="5"
+        />
+        <defs>
+          <linearGradient
+            id="registerButtonGradient"
+            x1="5"
+            y1="36"
+            x2="168"
+            y2="36"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#2d78f5" />
+            <stop offset="1" stop-color="#ff5c34" />
+            <animateTransform
+              attributeName="gradientTransform"
+              type="rotate"
+              from="0 86.5 36"
+              to="360 86.5 36"
+              dur="2.5s"
+              repeatCount="indefinite"
+              begin="registerApplyButton.mouseenter;registerApplyButton.focusin"
+              end="registerApplyButton.mouseleave;registerApplyButton.focusout"
+            />
+          </linearGradient>
+        </defs>
+      </svg>
       <span>참가신청</span>
       <span class="btn__icon" aria-hidden="true">→</span>
     </a>
