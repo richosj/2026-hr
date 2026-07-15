@@ -3,6 +3,7 @@ import '@noonnu/hangeul-nuri-bold/index.css'
 import '../scss/main.scss'
 import { initHero } from './hero-cube.js'
 import { initIntroCubeScroll } from './intro-cube-scroll.js'
+import { initFeatureHeadReveal } from './feature-head-reveal.js'
 import { initMessageScrollReveal } from './message-scroll-reveal.js'
 import { initSmoothScroll, scrollToTop, getLenis, onScroll } from './smooth-scroll.js'
 import { BP_DESKTOP_MIN } from './breakpoints.js'
@@ -118,4 +119,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initHero()
   initIntroCubeScroll()
   initMessageScrollReveal()
+  initFeatureHeadReveal()
 })

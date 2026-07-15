@@ -63,7 +63,7 @@ body.page-hero {
   }
 
   @include hero-desktop {
-    min-height: calc(100dvh - #{$header-height-desktop});
+    min-height: calc(100dvh);
     padding-block: 0;
   }
 

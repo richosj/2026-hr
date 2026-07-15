@@ -14,6 +14,10 @@ const pageData = {
     title: '소개',
     description: '2026 HR 프로젝트 소개',
   },
+  '/program.html': {
+    title: '프로그램',
+    description: '2026 엑스퍼트 HR FAIR 프로그램 안내',
+  },
 }
 
 export default defineConfig(({ mode }) => ({
@@ -46,6 +50,7 @@ export default defineConfig(({ mode }) => ({
       input: {
         main: path.resolve(__dirname, 'index.html'),
         about: path.resolve(__dirname, 'about.html'),
+        program: path.resolve(__dirname, 'program.html'),
       },
     },
   },
