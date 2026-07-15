@@ -6,7 +6,7 @@ $message-body-gradient: linear-gradient(180deg, #ffffff 0%, #efedf0 50%, #f4f1f2
 
 body.is-message-bg {
   //background: $message-body-gradient;
-  background: url('@assets/images/hero/home_message_01@2x.png') repeat-y center center;
+  //background: url('@assets/images/hero/home_message_01@2x.png') repeat-y center center;
 }
 
 // ── Message 01 (#message) ──
@@ -17,7 +17,7 @@ body.is-message-bg {
 
   .section__bg {
     background-color: transparent;
-    background-image: url('@assets/images/hero/home_message_01@2x.jpg');
+    background-image: url('@assets/images/hero/home_message_01@2x.svg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
