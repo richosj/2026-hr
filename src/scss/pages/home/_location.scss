@@ -1,0 +1,236 @@
+@use 'base/variables' as *;
+@use 'base/mixins' as *;
+
+.location {
+  background: $color-bg;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: 80px $container-padding;
+
+    @include tablet {
+      gap: 80px;
+      padding: 100px $container-padding-tablet;
+    }
+
+    @include desktop {
+      gap: 100px;
+      padding: 140px $container-padding-desktop;
+    }
+  }
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    text-align: center;
+
+    @include desktop {
+      gap: 30px;
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: $color-text;
+
+    @include tablet {
+      font-size: 80px;
+    }
+
+    @include desktop {
+      font-size: 120px;
+    }
+  }
+
+  &__desc {
+    font-family: $font-heading;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: $color-text-sub;
+
+    @include tablet {
+      font-size: 18px;
+    }
+
+    @include desktop {
+      font-size: 22px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+
+    @include desktop {
+      flex-direction: row;
+      align-items: stretch;
+      gap: 50px;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    min-width: 0;
+
+    @include desktop {
+      flex: 1 1 350px;
+    }
+  }
+
+  &__transport {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  &__address {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+
+    p:first-child {
+      font-weight: 500;
+      color: $color-text;
+    }
+
+    p:last-child {
+      font-weight: 400;
+      color: $color-text-sub;
+    }
+
+    @include desktop {
+      font-size: 17px;
+
+      p:last-child {
+        font-size: 15px;
+      }
+    }
+  }
+
+  &__map {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 260px;
+    overflow: hidden;
+    background: #eceff2;
+    color: $color-text-sub;
+    font-size: 14px;
+
+    > iframe,
+    > img,
+    > div {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      border: 0;
+      object-fit: cover;
+    }
+
+    @include tablet {
+      min-height: 340px;
+    }
+
+    @include desktop {
+      flex: 0 0 560px;
+      width: 560px;
+      height: 340px;
+      min-height: 340px;
+    }
+  }
+}
+
+.location-route {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: $color-text;
+
+    > img {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+    }
+
+    @include desktop {
+      font-size: 20px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: $color-text;
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+    }
+
+    @include desktop {
+      li {
+        font-size: 17px;
+      }
+    }
+  }
+
+  &__text {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: $color-text;
+
+    @include desktop {
+      font-size: 17px;
+    }
+  }
+}

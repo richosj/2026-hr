@@ -2,10 +2,14 @@
 @use 'base/mixins' as *;
 
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
   z-index: 400;
   width: 100%;
+
+  @include desktop {
+    position: fixed;
+  }
 
   &::before {
     content: '';

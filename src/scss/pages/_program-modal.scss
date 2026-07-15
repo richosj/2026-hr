@@ -671,3 +671,53 @@ body.is-modal-open {
   text-decoration: none;
   display: inline-block;
 }
+
+// ── 개발용: 팝업 미리보기 페이지 ──
+
+.program-modals-preview {
+  min-height: calc(100dvh - 60px);
+  padding: 40px 24px 80px;
+  background: #f2f4f6;
+
+  @media (min-width: 800px) {
+    min-height: calc(100dvh - 100px);
+    padding: 80px 40px 120px;
+  }
+
+  &__inner {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  &__head {
+    margin-bottom: 32px;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #222;
+  }
+
+  &__desc {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .program-modal__btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

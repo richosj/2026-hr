@@ -1,0 +1,37 @@
+{{#> layout-program}}
+<section class="program-modals-preview">
+  <div class="program-modals-preview__inner">
+    <header class="program-modals-preview__head">
+      <h1 class="program-modals-preview__title">프로그램 팝업 미리보기</h1>
+      <p class="program-modals-preview__desc">개발용 페이지 — 각 팝업을 버튼으로 개별 호출합니다.</p>
+    </header>
+
+    <ul class="program-modals-preview__list">
+      <li>
+        <button type="button" class="program-modal__btn program-modal__btn--primary" data-open-modal="verify">
+          참가신청 인증 (verify)
+        </button>
+      </li>
+      <li>
+        <button type="button" class="program-modal__btn program-modal__btn--primary" data-open-modal="apply">
+          참가신청 폼 (apply)
+        </button>
+      </li>
+      <li>
+        <button type="button" class="program-modal__btn program-modal__btn--primary" data-open-modal="success">
+          신청 완료 (success)
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          class="program-modal__btn program-modal__btn--primary"
+          data-open-modal="detail"
+        >
+          프로그램 상세 (detail)
+        </button>
+      </li>
+    </ul>
+  </div>
+</section>
+{{/layout-program}}

@@ -18,6 +18,14 @@ const pageData = {
     title: '프로그램',
     description: '2026 엑스퍼트 HR FAIR 프로그램 안내',
   },
+  '/program-modals-preview.html': {
+    title: '프로그램 팝업 미리보기',
+    description: '프로그램 모달 개발용 미리보기',
+  },
+  '/location.html': {
+    title: '찾아오시는 길',
+    description: '2026 엑스퍼트 HR FAIR 행사장 위치 및 교통 안내',
+  },
 }
 
 export default defineConfig(({ mode }) => ({
@@ -51,6 +59,8 @@ export default defineConfig(({ mode }) => ({
         main: path.resolve(__dirname, 'index.html'),
         about: path.resolve(__dirname, 'about.html'),
         program: path.resolve(__dirname, 'program.html'),
+        programModalsPreview: path.resolve(__dirname, 'program-modals-preview.html'),
+        location: path.resolve(__dirname, 'location.html'),
       },
     },
   },
