@@ -41,12 +41,16 @@
   min-height: 100vh;
   min-height: 100dvh;
   @include padding-x;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  // padding-top: 30px;
+  // padding-bottom: 30px;
 
   @include tablet {
     gap: 50px;
-    padding-bottom: 50px;
+    //padding-bottom: 50px;
+    // 여백 감소
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: flex-start;
   }
 }
 
