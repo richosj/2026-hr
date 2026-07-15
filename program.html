@@ -1,9 +1,9 @@
 {{#> layout-program}}
-<section class="program-page">
-  <div class="program-page__inner">
-    <header class="program-hero">
-      <h1 class="program-hero__title">Program</h1>
-      <p class="program-hero__desc">2026 엑스퍼트의 HR FAIR 프로그램을 소개합니다.</p>
+<section class="program-page sub-page">
+  <div class="program-page__inner sub-page__inner">
+    <header class="program-hero sub-page-hero">
+      <h1 class="program-hero__title sub-page-hero__title">Program</h1>
+      <p class="program-hero__desc sub-page-hero__desc">2026 엑스퍼트의 HR FAIR 프로그램을 소개합니다.</p>
     </header>
 
     <div class="program-page__body">
@@ -52,7 +52,7 @@
             <article class="program-morning-card">
               <div>
                 <h3 class="program-morning-card__title">제 21회 인재개발 실태조사 결과발표</h3>
-                <p class="program-morning-card__desc">대한민국 기업 및 공공 조직의 HRD 현황과 활동, 이슈를 알아보는 시간. 특히 이번 조사의 결과에서는 다양한 HRD 이슈와 함께 AI의 도입에 대한 조직의 계획과 고민 등을 엿볼 수 있는 내용들이 포함되어 있습니다.</p>
+                <p class="program-morning-card__desc">대한민국 기업 및 공공 조직의 HRD 현황과 활동, 이슈를 알아보는 시간. <br class="d-block" />특히 이번 조사의 결과에서는 다양한 HRD 이슈와 함께 AI의 도입에 대한 조직의 <br class="d-block">계획과 고민 등을 엿볼 수 있는 내용들이 포함되어 있습니다.</p>
               </div>
               <div class="program-morning-card__footer">
                 <p class="program-speaker">
@@ -66,7 +66,7 @@
             <article class="program-morning-card">
               <div>
                 <h3 class="program-morning-card__title">조기퇴사를 해결하는 가장 확실한 방법</h3>
-                <p class="program-morning-card__desc">내용 변경 필요. 대한민국 기업 및 공공 조직의 HRD 현황과 활동, 이슈를 알아보는 시간. 특히 이번 조사의 결과에서는 다양한 HRD 이슈와 함께 AI의 도입에 대한 조직의 계획과 고민 등을 엿볼 수 있는 내용들이 포함되어 있습니다.</p>
+                <p class="program-morning-card__desc">내용 변경 필요. 대한민국 기업 및 공공 조직의 HRD 현황과 활동, 이슈를 알아보는 시간. <br class="d-block">특히 이번 조사의 결과에서는 다양한 HRD 이슈와 함께 AI의 도입에 대한 조직의 계획과 고민 등을 엿볼 수 있는 내용들이 포함되어 있습니다.</p>
               </div>
               <div class="program-morning-card__footer">
                 <p class="program-speaker">
@@ -101,7 +101,7 @@
           </a>
         </div>
 
-        {{!-- 데스크톱 갤러리 (4167) --}}
+        {{!-- 데스크톱 갤러리--}}
         <div class="program-gallery">
           <div class="program-gallery__board">
             <div class="program-gallery__tracks">
@@ -121,7 +121,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">배기원 대표</span><span class="program-speaker__sep"></span><span class="program-speaker__org">갈렙앤컴퍼니 이노베이션센터</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -130,7 +133,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">이하재 선임</span><span class="program-speaker__sep"></span><span class="program-speaker__org">동국제약</span></p>
                   </div>
                 </div>
-                <span class="program-card__check program-card__check--checked" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" checked />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card program-card--highlight">
                 <div>
@@ -139,7 +145,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">샤니아신 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -148,7 +157,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">장석용 처장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">한국도로교통공단</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -157,7 +169,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">박준호 대표</span><span class="program-speaker__sep"></span><span class="program-speaker__org">비엑스컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
             </div>
 
@@ -171,7 +186,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">김지훈 대표</span><span class="program-speaker__sep"></span><span class="program-speaker__org">스코프랩스</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -181,7 +199,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">강현진 팀장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -190,7 +211,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">권서희 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -199,7 +223,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">윤성국 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -208,7 +235,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">이승우 본부장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
             </div>
 
@@ -221,7 +251,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">박기열 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -231,7 +264,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">김진혁 팀장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">비엑스컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -240,7 +276,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">최동환 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -249,7 +288,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">박세웅 실장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">국방과학연구소</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-card">
                 <div>
@@ -258,16 +300,19 @@
                     <p class="program-speaker"><span class="program-speaker__name">정재윤 CL</span><span class="program-speaker__sep"></span><span class="program-speaker__org">뷰웍스</span></p>
                   </div>
                 </div>
-                <span class="program-card__check" aria-hidden="true"></span>
+                <label class="program-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
             </div>
           </div>
-          <ul class="program-table__footnote">
+          <ul class="program-table__footnote is-space">
             <li>비엑스컨설팅은 마케팅, CX, 세일즈 컨설팅 등을 전문으로 수행하는 엑스퍼트컨설팅 자회사입니다.</li>
           </ul>
         </div>
 
-        {{!-- 목록형 (4513) --}}
+        {{!-- 목록형 --}}
         <div class="program-list">
           <div class="program-list__group">
             <p class="program-list__time">13:00~13:50</p>
@@ -280,7 +325,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">배기원 대표</span><span class="program-speaker__sep"></span><span class="program-speaker__org">갈렙앤컴퍼니 이노베이션센터</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -290,7 +338,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">이하재 선임</span><span class="program-speaker__sep"></span><span class="program-speaker__org">동국제약</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check program-list-card__check--checked" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" checked />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -300,7 +351,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">샤니아신 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -310,7 +364,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">장석용 처장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">한국도로교통공단</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -320,7 +377,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">박준호 대표</span><span class="program-speaker__sep"></span><span class="program-speaker__org">비엑스컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
             </div>
             <ul class="program-list__note">
@@ -340,7 +400,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">김지훈 대표</span><span class="program-speaker__sep"></span><span class="program-speaker__org">스코프랩스</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -351,7 +414,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">강현진 팀장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -361,7 +427,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">권서희 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -371,7 +440,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">윤성국 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -381,7 +453,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">이승우 본부장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
             </div>
           </div>
@@ -397,7 +472,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">박기열 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -408,7 +486,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">김진혁 팀장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">비엑스컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -418,7 +499,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">최동환 소장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">엑스퍼트컨설팅</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -428,7 +512,10 @@
                     <p class="program-speaker"><span class="program-speaker__name">박세웅 실장</span><span class="program-speaker__sep"></span><span class="program-speaker__org">국방과학연구소</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
               <article class="program-list-card">
                 <div class="program-list-card__body">
@@ -438,16 +525,20 @@
                     <p class="program-speaker"><span class="program-speaker__name">정재윤 CL</span><span class="program-speaker__sep"></span><span class="program-speaker__org">뷰웍스</span></p>
                   </div>
                 </div>
-                <span class="program-list-card__check" aria-hidden="true"></span>
+                <label class="program-list-card__check-control program-check">
+                  <input class="program-check__input" type="checkbox" aria-label="프로그램 선택" />
+                  <span class="program-check__icon" aria-hidden="true"></span>
+                </label>
               </article>
             </div>
           </div>
         </div>
       </section>
 
-      <div class="program-cta">
-        <button type="button" class="program-cta__btn" data-open-modal="verify">참가신청</button>
-      </div>
+      
+    </div>
+    <div class="program-cta">
+      <button type="button" class="program-cta__btn" data-open-modal="verify">참가신청</button>
     </div>
   </div>
 </section>

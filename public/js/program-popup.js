@@ -26,6 +26,12 @@
   /** @type {string[]} */
   var modalStack = [];
 
+  /** @type {number} */
+  var scrollLockY = 0;
+
+  /** @type {boolean} */
+  var bodyLocked = false;
+
   /**
    * 모달 루트 요소 반환
    * @returns {HTMLElement|null}
@@ -64,7 +70,41 @@
    * @param {boolean} lock
    */
   function lockBody(lock) {
-    document.body.classList.toggle(BODY_LOCK_CLASS, lock);
+    if (lock && !bodyLocked) {
+      scrollLockY =
+        window.lenis && typeof window.lenis.scroll === 'number'
+          ? window.lenis.scroll
+          : window.scrollY || document.documentElement.scrollTop || 0;
+
+      bodyLocked = true;
+      document.documentElement.classList.add(BODY_LOCK_CLASS);
+      document.body.classList.add(BODY_LOCK_CLASS);
+
+      if (window.lenis && typeof window.lenis.stop === 'function') {
+        window.lenis.stop();
+      }
+      return;
+    }
+
+    if (!lock && bodyLocked) {
+      bodyLocked = false;
+      document.documentElement.classList.remove(BODY_LOCK_CLASS);
+      document.body.classList.remove(BODY_LOCK_CLASS);
+
+      if (window.lenis) {
+        if (typeof window.lenis.scrollTo === 'function') {
+          window.lenis.scrollTo(scrollLockY, {
+            immediate: true,
+            force: true,
+          });
+        }
+        if (typeof window.lenis.start === 'function') {
+          window.lenis.start();
+        }
+      } else {
+        window.scrollTo(0, scrollLockY);
+      }
+    }
   }
 
   /**

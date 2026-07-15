@@ -14,6 +14,8 @@ const SENS_MORPH_END = 0.62
 const TRAVEL_OFF = 0.008
 const FLIGHT_START_VH = 1.1
 const FLIGHT_END_VH = 0.04
+// 큐브 이동 진행률 기준 텍스트 등장 시점: 0.7 = 도착 30% 전
+const TEXT_REVEAL_MOVE_T = 0.7
 const FLIGHT_SMOOTH = 0.1
 const RETURN_SMOOTH = 0.35
 const RETURN_DONE = 0.004
@@ -189,7 +191,8 @@ export function initIntroCubeScroll() {
       ? message.getBoundingClientRect().top <= vh * 0.92
       : false
 
-    heroCta.classList.add('is-active')
+    // sensibility 끝에서 bottom 값이 올라가기 시작하면 CTA 숨김
+    heroCta.classList.toggle('is-active', bottom <= 50)
     heroCta.classList.toggle('is-white', useWhite)
     heroCta.style.bottom = `${bottom}px`
   }
@@ -353,7 +356,7 @@ export function initIntroCubeScroll() {
     const targetT = mapFlightProgress(travelT)
     const isReturning = targetT < smoothTravelT - 0.0005
     const moveT = advanceTravelT(targetT, travelT >= 1)
-    applyFlightTransform(moveT, vh, isReturning)
+    const effectiveMoveT = applyFlightTransform(moveT, vh, isReturning)
 
     if (travelT >= 1) {
       updateMorphPhase(pinProgress, morphDone)
@@ -362,7 +365,8 @@ export function initIntroCubeScroll() {
     }
 
     if (morphComplete) setMorphComplete(false)
-    setText(false)
+    setMorphExpand(0)
+    setText(effectiveMoveT >= TEXT_REVEAL_MOVE_T)
     updateCta(vh)
   }
 

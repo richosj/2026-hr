@@ -2,7 +2,7 @@
 <div class="program-modal-root" id="programModalRoot" hidden aria-hidden="true">
   <div class="program-modal-root__backdrop" data-modal-close aria-hidden="true"></div>
 
-  <div class="program-modal-root__panels" role="presentation">
+  <div class="program-modal-root__panels" role="presentation" data-lenis-prevent>
     {{!-- 참가신청 인증/확인 --}}
     <div
       class="program-modal program-modal--verify"
@@ -287,11 +287,30 @@
           <h2 class="program-modal-success__title" id="programModalSuccessTitle">신청이 완료되었습니다.</h2>
 
           <p class="program-modal-success__lunch" id="successLunchMsg" hidden>
-            <span class="program-modal-success__lunch-icon" aria-hidden="true">🌯</span>
+            <span class="program-modal-success__lunch-icon" aria-hidden="true"><img src="/assets/images/icon-lunch.svg" alt="간편식" /></span>
             점심식사(간편식) 신청하였습니다!
           </p>
 
-          <ul class="program-modal-success__sessions" id="successSessionList"></ul>
+          <ul class="program-modal-success__sessions" id="successSessionList">
+            <li class="program-modal-success__session">
+              <div class="program-modal-success__session-tags">
+                <span class="program-modal-success__session-tag">14:30~15:20</span>
+                <span class="program-modal-success__session-tag">AI Work Smart</span>
+              </div>
+              <p class="program-modal-success__session-title">
+                AI Work Smart 영업, CX, 마케팅 컨설팅을 통한 직접적 사업성과 향상 사례
+              </p>
+            </li>
+            <li class="program-modal-success__session">
+              <div class="program-modal-success__session-tags">
+                <span class="program-modal-success__session-tag">15:30~16:20</span>
+                <span class="program-modal-success__session-tag">Human Sense</span>
+              </div>
+              <p class="program-modal-success__session-title">
+                AI 시대, 질문하는 이성이 만드는 HRD의 새로운 방향
+              </p>
+            </li>
+          </ul>
 
           <button type="button" class="program-modal__btn program-modal__btn--primary program-modal-success__close" data-modal-close>
             닫기

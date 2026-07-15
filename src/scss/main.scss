@@ -5,6 +5,7 @@
 @use 'components/typography';
 @use 'components/img-placeholder';
 @use 'components/buttons';
+@use 'components/sub-page';
 @use 'layout/layout';
 @use 'layout/header';
 @use 'layout/mobile-menu';
@@ -14,3 +15,4 @@
 @use 'pages/home';
 @use 'pages/program';
 @use 'pages/program-modal';
+@use 'pages/location';

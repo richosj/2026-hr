@@ -13,7 +13,7 @@
 .intro-pin {
   &__track {
     position: relative;
-    height: 300vh;
+    height: 200vh;
   }
 
   &__sticky {
@@ -25,6 +25,9 @@
     min-height: 100vh;
     min-height: 100dvh;
     background-color: $color-bg;
+    background-image: url('/assets/images/home-gra-bg.png');
+    background-repeat: no-repeat;
+    background-position: 50% bottom;
   }
 }
 
