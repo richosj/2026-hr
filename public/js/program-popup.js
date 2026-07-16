@@ -66,6 +66,23 @@
   }
 
   /**
+   * 잠금 시점 스크롤 위치 복원
+   */
+  function restoreScrollPosition() {
+    var y = scrollLockY;
+
+    if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+      window.lenis.scrollTo(y, {
+        immediate: true,
+        force: true,
+      });
+      return;
+    }
+
+    window.scrollTo(0, y);
+  }
+
+  /**
    * 스크롤 잠금
    * @param {boolean} lock
    */
@@ -91,19 +108,17 @@
       document.documentElement.classList.remove(BODY_LOCK_CLASS);
       document.body.classList.remove(BODY_LOCK_CLASS);
 
-      if (window.lenis) {
-        if (typeof window.lenis.scrollTo === 'function') {
-          window.lenis.scrollTo(scrollLockY, {
-            immediate: true,
-            force: true,
-          });
-        }
-        if (typeof window.lenis.start === 'function') {
-          window.lenis.start();
-        }
-      } else {
-        window.scrollTo(0, scrollLockY);
+      restoreScrollPosition();
+
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start();
       }
+
+      // ESC 포커스 이동 등으로 스크롤이 다시 튀는 경우 대비
+      requestAnimationFrame(function () {
+        restoreScrollPosition();
+        requestAnimationFrame(restoreScrollPosition);
+      });
     }
   }
 
@@ -148,8 +163,12 @@
     var focusable = panel.querySelector(
       'input:not([disabled]), button:not([disabled]), select:not([disabled]), textarea:not([disabled])'
     );
-    if (focusable) {
-      focusable.focus();
+    if (focusable && typeof focusable.focus === 'function') {
+      try {
+        focusable.focus({ preventScroll: true });
+      } catch (error) {
+        focusable.focus();
+      }
     }
   }
 
@@ -252,9 +271,18 @@
    */
   function bindEscapeKey() {
     document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && currentModalName) {
-        closeCurrent();
+      if (event.key !== 'Escape' || !currentModalName) return;
+
+      // 기본 포커스/스크롤 점프 방지
+      event.preventDefault();
+      event.stopPropagation();
+
+      var active = document.activeElement;
+      if (active && active !== document.body && typeof active.blur === 'function') {
+        active.blur();
       }
+
+      closeCurrent();
     });
   }
 

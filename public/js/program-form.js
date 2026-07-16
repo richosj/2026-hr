@@ -366,102 +366,13 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 프로그램 상세 팝업 (404-3032)
-  // ---------------------------------------------------------------------------
-
-  /**
-   * 연사 문자열 파싱 ("이름 직급|회사,이름2 직급|회사2")
-   * @param {string} raw
-   * @returns {Array<{name: string, org: string}>}
-   */
-  function parseSpeakers(raw) {
-    if (!hasValue(raw)) return [];
-
-    return raw.split(',').map(function (entry) {
-      var parts = entry.split('|');
-      return {
-        name: (parts[0] || '').trim(),
-        org: (parts[1] || '').trim(),
-      };
-    });
-  }
-
-  /**
-   * 상세 팝업 데이터 채우기
-   * @param {HTMLElement} trigger
-   */
-  function fillDetailModal(trigger) {
-    var time = trigger.getAttribute('data-time') || '';
-    var title = trigger.getAttribute('data-title') || '';
-    var desc = trigger.getAttribute('data-desc') || '';
-    var speakersRaw = trigger.getAttribute('data-speakers') || '';
-
-    var timeEl = document.getElementById('detailTime');
-    var titleEl = document.getElementById('programModalDetailTitle');
-    var descEl = document.getElementById('detailDesc');
-    var speakersEl = document.getElementById('detailSpeakers');
-
-    if (timeEl) timeEl.textContent = time;
-    if (titleEl) titleEl.textContent = title;
-    if (descEl) descEl.textContent = desc;
-
-    if (speakersEl) {
-      speakersEl.innerHTML = '';
-      var speakers = parseSpeakers(speakersRaw);
-
-      speakers.forEach(function (speaker) {
-        var wrap = document.createElement('div');
-        wrap.className = 'program-modal-detail__speaker';
-
-        var name = document.createElement('span');
-        name.className = 'program-modal-detail__speaker-name';
-        name.textContent = speaker.name;
-
-        var sep = document.createElement('span');
-        sep.className = 'program-modal-detail__speaker-sep';
-        sep.setAttribute('aria-hidden', 'true');
-
-        var org = document.createElement('span');
-        org.className = 'program-modal-detail__speaker-org';
-        org.textContent = speaker.org;
-
-        wrap.appendChild(name);
-        wrap.appendChild(sep);
-        wrap.appendChild(org);
-        speakersEl.appendChild(wrap);
-      });
-    }
-  }
-
-  /**
-   * 상세 팝업 트리거 바인딩
-   */
-  function initProgramDetailTriggers() {
-    document.addEventListener('click', function (event) {
-      var target = event.target;
-      if (!(target instanceof Element)) return;
-
-      var trigger = target.closest('[data-open-program-detail]');
-      if (!trigger) return;
-
-      event.preventDefault();
-      fillDetailModal(trigger);
-
-      if (window.ProgramPopup) {
-        var shouldStack = window.ProgramPopup.getCurrent() === 'apply';
-        window.ProgramPopup.open('detail', { stack: shouldStack });
-      }
-    });
-  }
-
-  // ---------------------------------------------------------------------------
   // 초기화
+  // (프로그램 상세: program-detail.js / 시간대 선택: program-select.js)
   // ---------------------------------------------------------------------------
 
   function init() {
     initVerifyForm();
     initApplyForm();
-    initProgramDetailTriggers();
 
     window.addEventListener('program-popup:open', function (event) {
       if (event.detail && event.detail.name === 'verify') {
