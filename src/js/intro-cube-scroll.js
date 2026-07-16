@@ -5,7 +5,7 @@ const CUBE_LARGE_QUERY = HERO_CUBE_LARGE_QUERY
 const DESKTOP_QUERY = HERO_DESKTOP_QUERY
 const MOBILE_CUBE_VH = 0.25
 const DESKTOP_CUBE_VH = 0.4
-const CUBE_END_VH = 0.25
+const CUBE_END_VH = 0.23
 const MORPH_PIN_START = 0.08
 const MORPH_PIN_END = 0.62
 const SENSE_MORPH_START = 0.07
@@ -64,8 +64,8 @@ export function initIntroCubeScroll() {
 
   if (!cube || !cubeWrapper || !heroStage || !intro || !landing || !cubeSlot) return
 
-  const restNodes = morphTitle
-    ? [...morphTitle.querySelectorAll('.morph-item__rest')]
+  const morphItems = morphTitle
+    ? [...morphTitle.querySelectorAll('.morph-item')]
     : []
 
   let morphComplete = false
@@ -411,7 +411,7 @@ export function initIntroCubeScroll() {
   }
 
   const measureRestWidths = () => {
-    if (!morphTitle || restNodes.length === 0) return
+    if (!morphTitle || morphItems.length === 0) return
 
     const prevExpandSense = morphTitle.style.getPropertyValue('--expand-sense')
     const prevExpandSens = morphTitle.style.getPropertyValue('--expand-sensibility')
@@ -423,13 +423,45 @@ export function initIntroCubeScroll() {
     morphTitle.style.setProperty('--expand-sense', '1')
     morphTitle.style.setProperty('--expand-sensibility', '1')
 
-    restNodes.forEach((el) => {
-      el.style.maxWidth = 'none'
-      el.style.opacity = '1'
-      const width = Math.ceil(el.getBoundingClientRect().width) + 6
-      el.style.maxWidth = ''
-      el.style.opacity = ''
-      el.style.setProperty('--rest-width', `${width}px`)
+    // initial+rest 너비 측정 + Human Sense 그룹은 하나의 그라데이션으로 이어짐
+    morphItems.forEach((item) => {
+      const initial = item.querySelector('.morph-item__initial')
+      const rest = item.querySelector('.morph-item__rest')
+      if (!initial || !rest) return
+
+      rest.style.maxWidth = 'none'
+      rest.style.opacity = '1'
+
+      const initialWidth = Math.ceil(initial.getBoundingClientRect().width)
+      const restWidth = Math.ceil(rest.getBoundingClientRect().width) + 6
+
+      rest.style.maxWidth = ''
+      rest.style.opacity = ''
+
+      item.style.setProperty('--initial-width', `${initialWidth}px`)
+      item.style.setProperty('--rest-width', `${restWidth}px`)
+      rest.style.setProperty('--rest-width', `${restWidth}px`)
+    })
+
+    // Human Sense = 1개 그라데이션 (H → Sense e)
+    morphTitle.querySelectorAll('.morph-group--sense').forEach((group) => {
+      const items = [...group.querySelectorAll('.morph-item')]
+      let offset = 0
+      let total = 0
+
+      items.forEach((item) => {
+        const initialW = parseFloat(item.style.getPropertyValue('--initial-width')) || 0
+        const restW = parseFloat(item.style.getPropertyValue('--rest-width')) || 0
+        total += initialW + restW
+      })
+
+      items.forEach((item) => {
+        const initialW = parseFloat(item.style.getPropertyValue('--initial-width')) || 0
+        const restW = parseFloat(item.style.getPropertyValue('--rest-width')) || 0
+        item.style.setProperty('--group-width', `${total}px`)
+        item.style.setProperty('--group-offset', `${offset}px`)
+        offset += initialW + restW
+      })
     })
 
     morphTitle.classList.remove('is-measuring')

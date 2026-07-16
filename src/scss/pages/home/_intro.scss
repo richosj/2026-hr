@@ -174,38 +174,112 @@
   }
 }
 
+.morph-group {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .morph-item {
   display: inline-flex;
   align-items: baseline;
   white-space: nowrap;
 
+  // 접힘: 단색 → 펼침: 그라데이션
+  // sense 그룹(Human Sense)은 --group-width / --group-offset 로 한 줄 그라데이션
   &--sense {
+    --morph-solid: #1e6bff;
+    --morph-gradient: linear-gradient(90deg, #1e6bff, #46a6ff);
+    --morph-expand: var(--expand-sense, 0);
+
     .morph-item__initial {
-      color: #1e6bff;
+      color: var(--morph-solid);
     }
 
     .morph-item__rest {
       max-width: calc(var(--expand-sense, 0) * var(--rest-width, 0px));
       opacity: var(--expand-sense, 0);
-      background: linear-gradient(90deg, #1e6bff, #46a6ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--morph-solid);
+    }
+
+    @include tablet {
+      .morph-item__initial,
+      .morph-item__rest {
+        background-image: var(--morph-gradient);
+        // Human Sense 전체 너비 기준
+        background-size: var(--group-width, calc(var(--initial-width, 0px) + var(--rest-width, 0px))) 100%;
+        background-repeat: no-repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+
+      .morph-item__initial {
+        background-position: calc(-1 * var(--group-offset, 0px)) 0;
+        color: color-mix(
+          in srgb,
+          var(--morph-solid) calc((1 - var(--morph-expand)) * 100%),
+          transparent
+        );
+        -webkit-text-fill-color: color-mix(
+          in srgb,
+          var(--morph-solid) calc((1 - var(--morph-expand)) * 100%),
+          transparent
+        );
+      }
+
+      .morph-item__rest {
+        background-position: calc(-1 * (var(--group-offset, 0px) + var(--initial-width, 0px))) 0;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
     }
   }
 
   &--sensibility {
+    --morph-solid: #ff5c34;
+    --morph-gradient: linear-gradient(90deg, #ffa245, #ff5c34);
+    --morph-expand: var(--expand-sensibility, 0);
+
     .morph-item__initial {
-      color: #ff5c34;
+      color: var(--morph-solid);
     }
 
     .morph-item__rest {
       max-width: calc(var(--expand-sensibility, 0) * var(--rest-width, 0px));
       opacity: var(--expand-sensibility, 0);
-      background: linear-gradient(90deg, #ffa245, #ff5c34);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--morph-solid);
+    }
+
+    @include tablet {
+      .morph-item__initial,
+      .morph-item__rest {
+        background-image: var(--morph-gradient);
+        background-size: calc(var(--initial-width, 0px) + var(--rest-width, 0px)) 100%;
+        background-repeat: no-repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+
+      .morph-item__initial {
+        background-position: 0 0;
+        color: color-mix(
+          in srgb,
+          var(--morph-solid) calc((1 - var(--morph-expand)) * 100%),
+          transparent
+        );
+        -webkit-text-fill-color: color-mix(
+          in srgb,
+          var(--morph-solid) calc((1 - var(--morph-expand)) * 100%),
+          transparent
+        );
+      }
+
+      .morph-item__rest {
+        background-position: calc(-1 * var(--initial-width, 0px)) 0;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
     }
   }
 
