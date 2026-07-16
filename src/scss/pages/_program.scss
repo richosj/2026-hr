@@ -365,7 +365,7 @@ $program-morning-card-bg: #f2f9ff;
     }
 
     &--network {
-      background-color: $program-track-blue;
+      background-color: #0F7FFF;
     }
   }
 
@@ -409,12 +409,22 @@ $program-morning-card-bg: #f2f9ff;
     }
   }
 
+  &--accent {
+    //background-color: #f9fafb;
+    &:hover,&:focus{
+    .program-card__title {
+      color: #3A7DFF !important;
+    }
+    }
+  }
+
   &__title {
     font-size: 17px;
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: -0.02em;
     color: $color-text;
+    transition: color 0.3s ease;
   }
 
   &__tag {
