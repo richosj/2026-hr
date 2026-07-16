@@ -18,11 +18,12 @@
 
 .section__inner--feature {
   gap: 30px;
-  padding-top: 60px;
-  padding-bottom: 120px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 
   @include tablet {
     gap: 50px;
+    padding-top: 60px;
   }
 
   @include desktop {
