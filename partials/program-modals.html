@@ -47,7 +47,29 @@
                 인증번호 받기
               </button>
             </div>
-            <p class="program-modal-verify__auth-msg" id="verifyAuthMsg" hidden>인증이 완료되었습니다.</p>
+
+            {{!--
+              Figma 480-12531 인증 상태 마크업 (개발자 연동용 — 노출/전환 로직은 백엔드에서 처리)
+              1. guide + timer
+              2. expired
+              3. mismatch
+              4. success
+            --}}
+            <div class="program-modal-verify__status">
+              <p class="program-modal-verify__guide">
+                <span>인증번호 6자리를 입력해 주세요.</span>
+                <span class="program-modal-verify__timer">02:59</span>
+              </p>
+              <p class="program-modal-verify__msg program-modal-verify__msg--error">
+                인증 시간이 만료되었습니다.
+              </p>
+              <p class="program-modal-verify__msg program-modal-verify__msg--error">
+                인증번호가 일치하지 않습니다. 남은 발송 횟수는 4회입니다.
+              </p>
+              <p class="program-modal-verify__msg program-modal-verify__msg--success">
+                인증이 완료되었습니다.
+              </p>
+            </div>
           </div>
 
           <div class="program-modal__actions">
@@ -227,13 +249,31 @@
               </div>
             </div>
 
-            <label class="program-modal-apply__check program-modal-apply__check--lunch">
-              <input class="program-modal-apply__check-input" type="checkbox" id="applyLunch" name="lunch" />
-              <span class="program-modal-apply__check-box" aria-hidden="true"></span>
-              <span class="program-modal-apply__check-label program-modal-apply__check-label--accent">
-                점심식사(간편식) 신청여부
-              </span>
-            </label>
+            <fieldset class="program-modal-apply__lunch">
+              <legend class="program-modal-apply__lunch-title">점심식사(간편식) 신청여부</legend>
+              <div class="program-modal-apply__lunch-options">
+                <label class="program-modal-apply__lunch-option" for="applyLunchYes">
+                  <input
+                    class="program-modal-apply__lunch-input"
+                    type="radio"
+                    name="lunch"
+                    id="applyLunchYes"
+                    value="yes"
+                  />
+                  <span class="program-modal-apply__lunch-label">신청</span>
+                </label>
+                <label class="program-modal-apply__lunch-option" for="applyLunchNo">
+                  <input
+                    class="program-modal-apply__lunch-input"
+                    type="radio"
+                    name="lunch"
+                    id="applyLunchNo"
+                    value="no"
+                  />
+                  <span class="program-modal-apply__lunch-label">미신청</span>
+                </label>
+              </div>
+            </fieldset>
 
             <div class="program-modal-apply__privacy">
               <label class="program-modal-apply__check">

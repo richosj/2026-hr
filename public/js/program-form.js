@@ -95,11 +95,9 @@
     var nameInput = document.getElementById('verifyName');
     var phoneInput = document.getElementById('verifyPhone');
     var authBtn = document.getElementById('verifyAuthBtn');
-    var authMsg = document.getElementById('verifyAuthMsg');
 
     if (nameInput) nameInput.value = '';
     if (phoneInput) phoneInput.value = '';
-    if (authMsg) authMsg.hidden = true;
     if (authBtn) {
       authBtn.disabled = true;
       authBtn.classList.remove('is-ready');
@@ -117,7 +115,6 @@
     var nameInput = document.getElementById('verifyName');
     var phoneInput = document.getElementById('verifyPhone');
     var authBtn = document.getElementById('verifyAuthBtn');
-    var authMsg = document.getElementById('verifyAuthMsg');
     var confirmBtn = document.getElementById('verifyConfirmBtn');
 
     if (!form || !nameInput || !phoneInput || !authBtn || !confirmBtn) return;
@@ -126,7 +123,6 @@
     nameInput.addEventListener('input', updateVerifyConfirmButton);
     phoneInput.addEventListener('input', function () {
       verifyAuthCompleted = false;
-      if (authMsg) authMsg.hidden = true;
       updateVerifyAuthButton();
       updateVerifyConfirmButton();
     });
@@ -137,10 +133,6 @@
 
       // TODO: 실제 SMS 인증 API 연동
       verifyAuthCompleted = true;
-
-      if (authMsg) {
-        authMsg.hidden = false;
-      }
 
       authBtn.disabled = true;
       authBtn.classList.remove('is-ready');
@@ -176,6 +168,19 @@
   // ---------------------------------------------------------------------------
   // 신청 폼 모달 (470-456)
   // ---------------------------------------------------------------------------
+
+  /**
+   * 점심식사 신청 라디오 값
+   * @returns {'yes'|'no'|''}
+   */
+  function getLunchSelection() {
+    var yes = document.getElementById('applyLunchYes');
+    var no = document.getElementById('applyLunchNo');
+
+    if (yes && yes.checked) return 'yes';
+    if (no && no.checked) return 'no';
+    return '';
+  }
 
   /**
    * 신청하기 버튼 활성화 상태 갱신
@@ -219,7 +224,8 @@
       hasValue(fields.email.value) &&
       isValidEmail(fields.email.value) &&
       fields.privacy &&
-      fields.privacy.checked;
+      fields.privacy.checked &&
+      getLunchSelection() !== '';
 
     submitBtn.disabled = !allFilled;
   }
@@ -294,7 +300,6 @@
     var list = document.getElementById('applyProgramList');
     var successList = document.getElementById('successSessionList');
     var lunchMsg = document.getElementById('successLunchMsg');
-    var lunchCheckbox = document.getElementById('applyLunch');
 
     if (!list || !successList) return;
 
@@ -327,8 +332,8 @@
       successList.appendChild(li);
     });
 
-    if (lunchMsg && lunchCheckbox) {
-      lunchMsg.hidden = !lunchCheckbox.checked;
+    if (lunchMsg) {
+      lunchMsg.hidden = getLunchSelection() !== 'yes';
     }
   }
 
