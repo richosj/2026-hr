@@ -11,19 +11,19 @@ const CUBE_LARGE_QUERY = HERO_CUBE_LARGE_QUERY
 const ROTATION_RANGE = 55
 const DESKTOP_SMOOTHING = 0.035
 
-// 모바일 자동 회전
-const MOBILE_STOPS = [
-  { x: 15, y: 15, duration: 2800 },
-  { x: -15, y: 15, duration: 2800 },
-  { x: -15, y: -15, duration: 2800 },
-  { x: 15, y: -15, duration: 2800 },
-  { x: 0, y: 0, duration: 2800 },
+// 모바일·태블릿 자동 회전
+const AUTO_STOPS = [
+  { x: 15, y: 15, duration: 2200 },
+  { x: -15, y: 15, duration: 2200 },
+  { x: -15, y: -15, duration: 2200 },
+  { x: 15, y: -15, duration: 2200 },
+  { x: 0, y: 0, duration: 2200 },
 ]
 
 let cubeElement = null
 let currentX = 0
 let currentY = 0
-let mobilePaused = false
+let autoPaused = false
 let flightMode = false
 let flightTravelT = 0
 let flightMorphExpand = 0
@@ -59,7 +59,7 @@ export function resetHeroCubeRotation() {
 
 /** true: 자동·마우스 회전 정지 (intro 비행·착지) */
 export function setHeroCubeFlightMode(isFlying) {
-  mobilePaused = isFlying
+  autoPaused = isFlying
   flightMode = isFlying
 
   if (isFlying) {
@@ -119,10 +119,10 @@ function initHeroCube() {
   let targetX = 0
   let targetY = 0
   let desktopRafId = null
-  let mobileRafId = null
-  let mobileStopIndex = 0
-  let mobileFromX = 0
-  let mobileFromY = 0
+  let autoRafId = null
+  let autoStopIndex = 0
+  let autoFromX = 0
+  let autoFromY = 0
   let isDesktopMode = false
 
   const getInteractionRect = () => {
@@ -168,22 +168,29 @@ function initHeroCube() {
     targetX = (0.5 - y) * 2 * ROTATION_RANGE
   }
 
-  const runMobileStop = () => {
-    if (mobilePaused) {
+  const stopAutoLoop = () => {
+    if (autoRafId) {
+      cancelAnimationFrame(autoRafId)
+      autoRafId = null
+    }
+  }
+
+  const runAutoStop = () => {
+    if (autoPaused) {
       applyFlightRotation()
-      mobileRafId = requestAnimationFrame(runMobileStop)
+      autoRafId = requestAnimationFrame(runAutoStop)
       return
     }
 
-    const stop = MOBILE_STOPS[mobileStopIndex]
-    const startX = mobileFromX
-    const startY = mobileFromY
+    const stop = AUTO_STOPS[autoStopIndex]
+    const startX = autoFromX
+    const startY = autoFromY
     const startTime = performance.now()
 
     const step = (now) => {
-      if (mobilePaused) {
+      if (autoPaused) {
         applyFlightRotation()
-        mobileRafId = requestAnimationFrame(step)
+        autoRafId = requestAnimationFrame(step)
         return
       }
 
@@ -195,41 +202,34 @@ function initHeroCube() {
       applyRotation()
 
       if (progress < 1) {
-        mobileRafId = requestAnimationFrame(step)
+        autoRafId = requestAnimationFrame(step)
         return
       }
 
-      mobileFromX = stop.x
-      mobileFromY = stop.y
-      mobileStopIndex = (mobileStopIndex + 1) % MOBILE_STOPS.length
-      runMobileStop()
+      autoFromX = stop.x
+      autoFromY = stop.y
+      autoStopIndex = (autoStopIndex + 1) % AUTO_STOPS.length
+      runAutoStop()
     }
 
-    mobileRafId = requestAnimationFrame(step)
+    autoRafId = requestAnimationFrame(step)
   }
 
-  const startMobileLoop = () => {
-    stopMobileLoop()
-    mobileStopIndex = 0
-    mobileFromX = 0
-    mobileFromY = 0
+  const startAutoLoop = () => {
+    stopAutoLoop()
+    autoStopIndex = 0
+    autoFromX = 0
+    autoFromY = 0
     resetHeroCubeRotation()
     targetX = 0
     targetY = 0
-    runMobileStop()
-  }
-
-  const stopMobileLoop = () => {
-    if (mobileRafId) {
-      cancelAnimationFrame(mobileRafId)
-      mobileRafId = null
-    }
+    runAutoStop()
   }
 
   const enableDesktop = () => {
     isDesktopMode = true
-    mobilePaused = false
-    stopMobileLoop()
+    autoPaused = false
+    stopAutoLoop()
     document.addEventListener('mousemove', handleMouseMove)
     startDesktopLoop()
   }
@@ -238,7 +238,8 @@ function initHeroCube() {
     isDesktopMode = false
     document.removeEventListener('mousemove', handleMouseMove)
     stopDesktopLoop()
-    startMobileLoop()
+    autoPaused = false
+    startAutoLoop()
   }
 
   const media = window.matchMedia(DESKTOP_QUERY)
