@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="프로그램 모달 개발용 미리보기" />
+  <title>2026 HR FAIR</title>
+  <script type="module" crossorigin src="/2026-hr/assets/main.js"></script>
+  <link rel="stylesheet" crossorigin href="/2026-hr/assets/main.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="./" class="header__logo" aria-label="EXPERT">
+        <span class="header__logo-placeholder"></span>
+      </a>
+  
+      <button
+        type="button"
+        class="header__menu-btn"
+        id="menuBtn"
+        aria-label="메뉴 열기"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span class="header__menu-icon"></span>
+      </button>
+  
+      <nav class="header__nav" id="gnb" aria-label="주요 메뉴">
+        <ul class="header__menu">
+          <li><a href="./index.html" class="header__link">HR FAIR</a></li>
+          <li><a href="./program.html" class="header__link">프로그램</a></li>
+          <li><a href="#apply" class="header__link">참가신청 및 신청내역</a></li>
+          <li><a href="./location.html" class="header__link header__link--accent">찾아오시는 길</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu__backdrop" id="menuBackdrop"></div>
+    <nav class="mobile-menu__nav" id="mobileNav" aria-label="모바일 메뉴">
+      <ul class="mobile-menu__list">
+        <li><a href="./index.html" class="mobile-menu__link">HR FAIR</a></li>
+        <li><a href="./program.html" class="mobile-menu__link">프로그램</a></li>
+        <li><a href="#apply" class="mobile-menu__link">참가신청 및 신청내역</a></li>
+        <li><a href="./location.html" class="mobile-menu__link mobile-menu__link--accent">찾아오시는 길</a></li>
+      </ul>
+    </nav>
+  </div>
+  <main class="main" id="main">
+    <section class="program-modals-preview">
+      <div class="program-modals-preview__inner">
+        <header class="program-modals-preview__head">
+          <h1 class="program-modals-preview__title">프로그램 팝업 미리보기</h1>
+          <p class="program-modals-preview__desc">개발용 페이지 — 각 팝업을 버튼으로 개별 호출합니다.</p>
+        </header>
+    
+        <ul class="program-modals-preview__list">
+          <li>
+            <button type="button" class="program-modal__btn program-modal__btn--primary" data-open-modal="verify">
+              참가신청 인증 (verify)
+            </button>
+          </li>
+          <li>
+            <button type="button" class="program-modal__btn program-modal__btn--primary" data-open-modal="apply">
+              참가신청 폼 (apply)
+            </button>
+          </li>
+          <li>
+            <button type="button" class="program-modal__btn program-modal__btn--primary" data-open-modal="success">
+              신청 완료 (success)
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              class="program-modal__btn program-modal__btn--primary"
+              data-open-modal="detail"
+            >
+              프로그램 상세 (detail)
+            </button>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <a href="./" class="footer__logo" aria-label="EXPERT"></a>
+        <div class="footer__actions">
+          <a href="#download" class="footer__action">
+            <span class="footer__action-icon" aria-hidden="true"><img src="/2026-hr/assets/images/icon-download-white.svg" alt="공문 다운로드"></span>
+            공문 다운로드
+          </a>
+          <a href="https://www.exc.co.kr/?gad_source=1&gad_campaignid=22679099193&gbraid=0AAAAAoLeg98_wqEemE1qlJ1VFdtxl70lo&gclid=CjwKCAjw5ZXQBhBdEiwAI5XVWd3EvMSwc8WJZMAJTvKkteAWRODAyDpQMsgPCdo57u0NwKwGFu19KBoCD_UQAvD_BwE" class="footer__action" target="_blank" rel="noopener noreferrer">
+            <span class="footer__action-icon" aria-hidden="true"><img src="/2026-hr/assets/images/icon-external.svg" alt="엑스퍼트컨설팅"></span>
+            엑스퍼트컨설팅
+          </a>
+        </div>
+      </div>
+  
+      <div class="footer__bottom">
+        <div class="footer__info">
+          <a href="tel:0221523978" class="footer__phone">02) 2152-3978</a>
+          <div class="footer__sns">
+            <a href="#" class="footer__sns-link" aria-label="Blog">
+              <img src="/2026-hr/assets/images/icon-blog.svg" alt="Blog">
+            </a>
+            <a href="#" class="footer__sns-link" aria-label="Instagram">
+              <img src="/2026-hr/assets/images/icon-instagram.svg" alt="Instagram">
+            </a>
+            <a href="#" class="footer__sns-link" aria-label="YouTube">
+              <img src="/2026-hr/assets/images/icon-youtube.svg" alt="YouTube">
+            </a>
+            
+          </div>
+        </div>
+        <p class="footer__copy">copyright©2023 EXPERT Consulting All rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+  
+  <button type="button" class="top-btn" id="topBtn" aria-label="맨 위로">
+    <span aria-hidden="true">↑</span>
+  </button>
+  <div class="program-modal-root" id="programModalRoot" hidden aria-hidden="true">
+    <div class="program-modal-root__backdrop" data-modal-close aria-hidden="true"></div>
+  
+    <div class="program-modal-root__panels" role="presentation" data-lenis-prevent>
+      <div
+        class="program-modal program-modal--verify"
+        id="programModalVerify"
+        data-modal="verify"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="programModalVerifyTitle"
+        hidden
+      >
+        <div class="program-modal__inner">
+          <header class="program-modal__header">
+            <h2 class="program-modal__title" id="programModalVerifyTitle">참가신청</h2>
+            <p class="program-modal__desc">이름과 연락처를 입력해 신청 정보를 확인해 주세요.</p>
+          </header>
+  
+          <form class="program-modal-verify" id="programVerifyForm" novalidate>
+            <div class="program-modal__field">
+              <label class="visually-hidden" for="verifyName">이름</label>
+              <input
+                class="program-modal__input"
+                type="text"
+                id="verifyName"
+                name="name"
+                placeholder="이름"
+                autocomplete="name"
+              />
+            </div>
+  
+            <div class="program-modal__field-group">
+              <div class="program-modal__field-row">
+                <label class="visually-hidden" for="verifyPhone">연락처</label>
+                <input
+                  class="program-modal__input program-modal__input--grow"
+                  type="tel"
+                  id="verifyPhone"
+                  name="phone"
+                  placeholder="연락처"
+                  autocomplete="tel"
+                />
+                <button type="button" class="program-modal__btn program-modal__btn--secondary" id="verifyAuthBtn">
+                  인증번호 받기
+                </button>
+              </div>
+  
+              <div class="program-modal-verify__status">
+                <p class="program-modal-verify__guide">
+                  <span>인증번호 6자리를 입력해 주세요.</span>
+                  <span class="program-modal-verify__timer">02:59</span>
+                </p>
+                <p class="program-modal-verify__msg program-modal-verify__msg--error">
+                  인증 시간이 만료되었습니다.
+                </p>
+                <p class="program-modal-verify__msg program-modal-verify__msg--error">
+                  인증번호가 일치하지 않습니다. 남은 발송 횟수는 4회입니다.
+                </p>
+                <p class="program-modal-verify__msg program-modal-verify__msg--success">
+                  인증이 완료되었습니다.
+                </p>
+              </div>
+            </div>
+  
+            <div class="program-modal__actions">
+              <button type="button" class="program-modal__btn program-modal__btn--ghost" data-modal-close>닫기</button>
+              <button type="button" class="program-modal__btn program-modal__btn--ghost" id="verifyConfirmBtn" disabled>
+                확인하기
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <div
+        class="program-modal program-modal--apply"
+        id="programModalApply"
+        data-modal="apply"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="programModalApplyTitle"
+        hidden
+      >
+        <div class="program-modal__inner program-modal__inner--scroll">
+          <header class="program-modal__header">
+            <h2 class="program-modal__title" id="programModalApplyTitle">참가신청</h2>
+            <p class="program-modal__desc">
+              이전 신청 정보를 불러왔습니다.
+              <span class="program-modal__desc-accent">신청 완료된 세션은 변경이 어렵습니다.</span>
+            </p>
+          </header>
+  
+          <form class="program-modal-apply" id="programApplyForm" novalidate>
+            <section class="program-modal-apply__programs">
+              <h3 class="program-modal-apply__section-title">
+                신청 프로그램 <span class="program-modal-apply__count" id="applyProgramCount">2</span>건
+              </h3>
+              <ul class="program-modal-apply__program-list" id="applyProgramList">
+                <li class="program-modal-apply__program-item">
+                  <div class="program-modal-apply__program-info">
+                    <div class="program-modal-apply__tags">
+                      <span class="program-modal-apply__tag">14:30~15:20</span>
+                      <span class="program-modal-apply__tag">AI Work Smart</span>
+                    </div>
+                    <button
+                      type="button"
+                      class="program-modal-apply__program-title"
+                      data-open-program-detail
+                      data-time="14:30~15:20"
+                      data-category="AI Work Smart"
+                      data-title="AI Work Smart 영업, CX, 마케팅 컨설팅을 통한 직접적 사업성과 향상 사례"
+                      data-desc="기업, 공공기관, 대학의 HRD현황을 파악하고 미래를 예측하는 국내 유일의 HRD서베이! 특히 이번에는 경력 성장에 대한 인식, 상황 등에 대한 데이터들을 확인하고 향후 경력 성장의 방향에 대한 논의까지 진행해 보고자 합니다."
+                      data-speakers="홍길동 과장|BGF리테일,김성림 파트장|엑스퍼트컨설팅"
+                    >
+                      AI Work Smart 영업, CX, 마케팅 컨설팅을 통한 직접적 사업성과 향상 사례
+                    </button>
+                  </div>
+                  <button type="button" class="program-modal-apply__remove" aria-label="프로그램 삭제">
+                    <span aria-hidden="true"></span>
+                  </button>
+                </li>
+                <li class="program-modal-apply__program-item">
+                  <div class="program-modal-apply__program-info">
+                    <div class="program-modal-apply__tags">
+                      <span class="program-modal-apply__tag">14:30~15:20</span>
+                      <span class="program-modal-apply__tag">AI Work Smart</span>
+                    </div>
+                    <button
+                      type="button"
+                      class="program-modal-apply__program-title"
+                      data-open-program-detail
+                      data-time="14:30~15:20"
+                      data-category="AI Work Smart"
+                      data-title="AI Work Smart 영업, CX, 마케팅 컨설팅을 통한 직접적 사업성과 향상 사례"
+                      data-desc="기업, 공공기관, 대학의 HRD현황을 파악하고 미래를 예측하는 국내 유일의 HRD서베이! 특히 이번에는 경력 성장에 대한 인식, 상황 등에 대한 데이터들을 확인하고 향후 경력 성장의 방향에 대한 논의까지 진행해 보고자 합니다."
+                      data-speakers="홍길동 과장|BGF리테일,김성림 파트장|엑스퍼트컨설팅"
+                    >
+                      AI Work Smart 영업, CX, 마케팅 컨설팅을 통한 직접적 사업성과 향상 사례
+                    </button>
+                  </div>
+                  <button type="button" class="program-modal-apply__remove" aria-label="프로그램 삭제">
+                    <span aria-hidden="true"></span>
+                  </button>
+                </li>
+              </ul>
+            </section>
+  
+            <section class="program-modal-apply__applicant">
+              <h3 class="program-modal-apply__section-title">신청자 정보</h3>
+  
+              <div class="program-modal-apply__fields">
+                <div class="program-modal__field">
+                  <label class="visually-hidden" for="applyName">이름</label>
+                  <input class="program-modal__input" type="text" id="applyName" name="name" placeholder="이름" />
+                </div>
+  
+                <div class="program-modal__field-row">
+                  <label class="visually-hidden" for="applyPhone">연락처</label>
+                  <input
+                    class="program-modal__input program-modal__input--grow"
+                    type="tel"
+                    id="applyPhone"
+                    name="phone"
+                    placeholder="연락처"
+                  />
+                  <span class="program-modal__btn program-modal__btn--verified" id="applyPhoneVerified" hidden>
+                    인증완료
+                  </span>
+                </div>
+  
+                <div class="program-modal__field-row">
+                  <label class="visually-hidden" for="applyCompany">회사명</label>
+                  <input
+                    class="program-modal__input program-modal__input--grow"
+                    type="text"
+                    id="applyCompany"
+                    name="company"
+                    placeholder="회사명"
+                  />
+                  <label class="visually-hidden" for="applyJobType">직군</label>
+                  <select class="program-modal__input program-modal__input--grow program-modal__select" id="applyJobType" name="jobType">
+                    <option value="" selected disabled>직군</option>
+                    <option value="사무직">사무직</option>
+                    <option value="연구직">연구직</option>
+                    <option value="생산직">생산직</option>
+                    <option value="기타">기타</option>
+                  </select>
+                </div>
+  
+                <div class="program-modal__field-row">
+                  <label class="visually-hidden" for="applyAddress">주소</label>
+                  <input
+                    class="program-modal__input program-modal__input--grow"
+                    type="text"
+                    id="applyAddress"
+                    name="address"
+                    placeholder="주소"
+                    readonly
+                  />
+                  <button type="button" class="program-modal__btn program-modal__btn--secondary" id="applyAddressBtn">
+                    주소찾기
+                  </button>
+                </div>
+  
+                <div class="program-modal__field">
+                  <label class="visually-hidden" for="applyAddressDetail">상세주소</label>
+                  <input
+                    class="program-modal__input"
+                    type="text"
+                    id="applyAddressDetail"
+                    name="addressDetail"
+                    placeholder="상세주소"
+                  />
+                </div>
+  
+                <div class="program-modal__field-row">
+                  <label class="visually-hidden" for="applyDepartment">부서</label>
+                  <input
+                    class="program-modal__input program-modal__input--grow"
+                    type="text"
+                    id="applyDepartment"
+                    name="department"
+                    placeholder="부서"
+                  />
+                  <label class="visually-hidden" for="applyPosition">직급</label>
+                  <input
+                    class="program-modal__input program-modal__input--grow"
+                    type="text"
+                    id="applyPosition"
+                    name="position"
+                    placeholder="직급"
+                  />
+                </div>
+  
+                <div class="program-modal__field">
+                  <label class="visually-hidden" for="applyEmail">이메일</label>
+                  <input class="program-modal__input" type="email" id="applyEmail" name="email" placeholder="이메일" />
+                </div>
+              </div>
+  
+              <fieldset class="program-modal-apply__lunch">
+                <legend class="program-modal-apply__lunch-title">점심식사(간편식) 신청여부</legend>
+                <div class="program-modal-apply__lunch-options">
+                  <label class="program-modal-apply__lunch-option" for="applyLunchYes">
+                    <input
+                      class="program-modal-apply__lunch-input"
+                      type="radio"
+                      name="lunch"
+                      id="applyLunchYes"
+                      value="yes"
+                    />
+                    <span class="program-modal-apply__lunch-label">신청</span>
+                  </label>
+                  <label class="program-modal-apply__lunch-option" for="applyLunchNo">
+                    <input
+                      class="program-modal-apply__lunch-input"
+                      type="radio"
+                      name="lunch"
+                      id="applyLunchNo"
+                      value="no"
+                    />
+                    <span class="program-modal-apply__lunch-label">미신청</span>
+                  </label>
+                </div>
+              </fieldset>
+  
+              <div class="program-modal-apply__privacy">
+                <label class="program-modal-apply__check">
+                  <input class="program-modal-apply__check-input" type="checkbox" id="applyPrivacy" name="privacy" />
+                  <span class="program-modal-apply__check-box" aria-hidden="true"></span>
+                  <span class="program-modal-apply__check-label">개인 정보활용에 동의합니다.</span>
+                </label>
+                <button type="button" class="program-modal-apply__privacy-toggle" id="applyPrivacyToggle" aria-expanded="false">
+                  내용보기
+                </button>
+              </div>
+  
+              <div class="program-modal-apply__privacy-detail" id="applyPrivacyDetail" hidden>
+                <p>
+                  <strong>개인정보 수집목적 및 이용목적</strong><br />
+                  2025 HR FAIR 사전 신청 접수에 따른 신청 및 취소에 관한 확인 및 관리, 정보 및 콘텐츠 제공을 위한 이메일 및 우편물 발송
+                </p>
+                <p>
+                  <strong>수집하는 개인정보 항목</strong><br />
+                  회사명, 회사주소, 상세주소, 이름, 부서명, 직급, 연락처, 이메일
+                </p>
+                <p>
+                  <strong>개인정보의 보유 및 이용기간</strong><br />
+                  신청자의 개인정보는 추후 이력관리 및 원활한 서비스 지원을 위해 계속 보유합니다. 다만 이용자가 메일/전화 등을 통해 정보삭제를 요청한 경우 수집된 개인정보는 재생할 수 없는 방법에 의하여 하드디스크에서 완전히 삭제되며 어떠한 용도로도 열람 또는 이용할 수 없도록 처리됩니다.
+                </p>
+              </div>
+            </section>
+  
+            <div class="program-modal__actions program-modal__actions--apply">
+              <button type="button" class="program-modal__btn program-modal__btn--ghost" data-modal-close>닫기</button>
+              <button type="submit" class="program-modal__btn program-modal__btn--primary" id="applySubmitBtn" disabled>
+                신청하기
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <div
+        class="program-modal program-modal--success"
+        id="programModalSuccess"
+        data-modal="success"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="programModalSuccessTitle"
+        hidden
+      >
+        <div class="program-modal__inner">
+          <div class="program-modal-success">
+            <h2 class="program-modal-success__title" id="programModalSuccessTitle">신청이 완료되었습니다.</h2>
+  
+            <p class="program-modal-success__lunch" id="successLunchMsg" hidden>
+              <span class="program-modal-success__lunch-icon" aria-hidden="true"><img src="/2026-hr/assets/images/icon-lunch.svg" alt="간편식" /></span>
+              점심식사(간편식) 신청하였습니다!
+            </p>
+  
+            <ul class="program-modal-success__sessions" id="successSessionList">
+              <li class="program-modal-success__session">
+                <div class="program-modal-success__session-tags">
+                  <span class="program-modal-success__session-tag">14:30~15:20</span>
+                  <span class="program-modal-success__session-tag">AI Work Smart</span>
+                </div>
+                <p class="program-modal-success__session-title">
+                  AI Work Smart 영업, CX, 마케팅 컨설팅을 통한 직접적 사업성과 향상 사례
+                </p>
+              </li>
+              <li class="program-modal-success__session">
+                <div class="program-modal-success__session-tags">
+                  <span class="program-modal-success__session-tag">15:30~16:20</span>
+                  <span class="program-modal-success__session-tag">Human Sense</span>
+                </div>
+                <p class="program-modal-success__session-title">
+                  AI 시대, 질문하는 이성이 만드는 HRD의 새로운 방향
+                </p>
+              </li>
+            </ul>
+  
+            <button type="button" class="program-modal__btn program-modal__btn--primary program-modal-success__close" data-modal-close>
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <div
+        class="program-modal program-modal--detail"
+        id="programModalDetail"
+        data-modal="detail"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="programModalDetailTitle"
+        hidden
+      >
+        <div class="program-modal__inner">
+          <div class="program-modal-detail">
+            <div class="program-modal-detail__info">
+              <span class="program-modal-detail__time" id="detailTime">14:30~15:20</span>
+              <div class="program-modal-detail__title-row">
+                <span class="program-modal-detail__cube" aria-hidden="true"></span>
+                <h2 class="program-modal-detail__title" id="programModalDetailTitle">
+                  AI Work Smart 영업, CX, 마케팅 컨설팅을 통한 직접적 사업성과 향상 사례
+                </h2>
+              </div>
+              <p class="program-modal-detail__desc" id="detailDesc">
+                기업, 공공기관, 대학의 HRD현황을 파악하고 미래를 예측하는 국내 유일의 HRD서베이!
+                특히 이번에는 경력 성장에 대한 인식, 상황 등에 대한 데이터들을 확인하고 향후 경력
+                성장의 방향에 대한 논의까지 진행해 보고자 합니다.
+              </p>
+            </div>
+            <div class="program-modal-detail__speakers" id="detailSpeakers">
+              <div class="program-modal-detail__speaker">
+                <span class="program-modal-detail__speaker-name">홍길동 과장</span>
+                <span class="program-modal-detail__speaker-sep" aria-hidden="true"></span>
+                <span class="program-modal-detail__speaker-org">BGF리테일</span>
+              </div>
+              <div class="program-modal-detail__speaker">
+                <span class="program-modal-detail__speaker-name">김성림 파트장</span>
+                <span class="program-modal-detail__speaker-sep" aria-hidden="true"></span>
+                <span class="program-modal-detail__speaker-org">엑스퍼트컨설팅</span>
+              </div>
+            </div>
+            <button type="button" class="program-modal__btn program-modal__btn--ghost program-modal-detail__close" data-modal-close>
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./js/program-popup.js"></script>
+  <script src="./js/program-data.js"></script>
+  <script src="./js/program-detail.js"></script>
+  <script src="./js/program-select.js"></script>
+  <script src="./js/program-form.js"></script>
+</body>
+</html>
