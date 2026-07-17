@@ -56,11 +56,16 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'),
+        index: path.resolve(__dirname, 'index.html'),
         about: path.resolve(__dirname, 'about.html'),
         program: path.resolve(__dirname, 'program.html'),
         programModalsPreview: path.resolve(__dirname, 'program-modals-preview.html'),
         location: path.resolve(__dirname, 'location.html'),
+      },
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name][extname]',
       },
     },
   },
