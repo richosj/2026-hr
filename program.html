@@ -25,7 +25,7 @@
         </div>
 
         <div class="program-table">
-          <div class="program-table__board">
+          <div class="program-table__board program-table__board--desktop">
             <div class="program-table__times">
               <div class="program-table__time">10:00~10:30</div>
               <div class="program-table__time">10:30~11:30</div>
@@ -53,6 +53,43 @@
               </div>
             </div>
             <p class="program-table__break">12:00~13:00 점심 및 휴식 (간편식 제공)</p>
+          </div>
+
+          <div class="program-table-mobile">
+            <div class="program-table-mobile__row">
+              <p class="program-table-mobile__time">10:00~10:30</p>
+              <div class="program-table-mobile__content">
+                <p class="program-table__cell-title">참석자 확인 &amp; 부스 관람</p>
+              </div>
+            </div>
+            <div class="program-table-mobile__row">
+              <p class="program-table-mobile__time">10:30~11:30</p>
+              <div class="program-table-mobile__content">
+                <p class="program-table__cell-title program-table__cell-title--primary">제22회 인재개발 실태조사 결과발표</p>
+                <p class="program-speaker">
+                  <span class="program-speaker__name">박선경 사장</span>
+                  <span class="program-speaker__sep" aria-hidden="true"></span>
+                  <span class="program-speaker__org">엑스퍼트컨설팅</span>
+                </p>
+              </div>
+            </div>
+            <div class="program-table-mobile__row">
+              <p class="program-table-mobile__time">11:30~12:00</p>
+              <div class="program-table-mobile__content">
+                <p class="program-table__cell-title program-table__cell-title--primary">조기퇴사를 해결하는 가장 확실한 방법, 커리어벗</p>
+                <p class="program-speaker">
+                  <span class="program-speaker__name">정진욱 부사장</span>
+                  <span class="program-speaker__sep" aria-hidden="true"></span>
+                  <span class="program-speaker__org program-speaker__org-mark">커리어벗</span>
+                </p>
+              </div>
+            </div>
+            <div class="program-table-mobile__row program-table-mobile__row--break">
+              <p class="program-table-mobile__time">12:00~13:00</p>
+              <div class="program-table-mobile__content">
+                <p class="program-table__cell-title">점심 및 휴식 (간편식 제공)</p>
+              </div>
+            </div>
           </div>
 
           <div class="program-morning-cards">
@@ -547,7 +584,7 @@
       </section>
     </div>
     <div class="program-cta">
-      <button type="button" class="program-cta__btn" data-open-modal="verify">참가신청</button>
+      <button type="button" class="program-cta__btn btn" data-open-modal="verify">참가신청</button>
     </div>
   </div>
 </section>
