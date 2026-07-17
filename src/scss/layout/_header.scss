@@ -2,14 +2,12 @@
 @use 'base/mixins' as *;
 
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 400;
   width: 100%;
-
-  @include desktop {
-    position: fixed;
-  }
 
   &::before {
     content: '';
@@ -42,7 +40,7 @@
 
     @include tablet {
       //padding-inline: $container-padding-tablet;
-      min-height: 80px;
+      min-height: $header-height-tablet;
     }
 
     @include desktop {

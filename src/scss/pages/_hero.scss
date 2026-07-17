@@ -62,6 +62,7 @@ body.page-hero {
   }
 
   @include tablet {
+    min-height: calc(100svh - #{$header-height-tablet});
     padding-top: 120px;
   }
 

@@ -1,6 +1,20 @@
 @use 'base/variables' as *;
 @use 'base/mixins' as *;
 
+// fixed header 보정 — sticky 때 차지하던 높이만큼 본문 상단 여백
+body {
+  padding-top: $header-height;
+
+  @include tablet {
+    padding-top: $header-height-tablet;
+  }
+
+  // PC는 기존부터 fixed + 페이지별 padding으로 맞춤 (page-hero 오버레이 유지)
+  @include desktop {
+    padding-top: 0;
+  }
+}
+
 .main {
   @include container;
   padding-block: 32px 48px;

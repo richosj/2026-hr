@@ -134,6 +134,26 @@
 
       @include mobile-only {
         min-height: 84px;
+
+        &.is-mobile-static {
+          flex-direction: column;
+          flex-wrap: nowrap;
+          align-items: center;
+
+          .morph-group {
+            width: 100%;
+          }
+
+          .morph-item--sensibility {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .morph-item__rest {
+            max-width: none;
+            opacity: 1;
+          }
+        }
       }
 
       &.is-visible {

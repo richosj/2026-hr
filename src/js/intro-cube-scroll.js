@@ -1,4 +1,4 @@
-import { HERO_CUBE_LARGE_QUERY, HERO_DESKTOP_QUERY } from './breakpoints.js'
+import { BP_MOBILE_MAX, HERO_CUBE_LARGE_QUERY, HERO_DESKTOP_QUERY } from './breakpoints.js'
 import { onScroll } from './smooth-scroll.js'
 
 const CUBE_LARGE_QUERY = HERO_CUBE_LARGE_QUERY
@@ -25,6 +25,7 @@ const FLIGHT_SMOOTH = 0.1
 const RETURN_SMOOTH = 0.35
 const RETURN_DONE = 0.004
 const RETURN_SLOT_REVEAL = 0.35
+const MOBILE_STATIC_MORPH_QUERY = `(max-width: ${BP_MOBILE_MAX}px)`
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value))
@@ -73,6 +74,7 @@ export function initIntroCubeScroll() {
   let smoothTravelT = 0
 
   const isLargeCube = () => window.matchMedia(CUBE_LARGE_QUERY).matches
+  const isMobileStaticMorph = () => window.matchMedia(MOBILE_STATIC_MORPH_QUERY).matches
 
   const getFallbackStartSize = () =>
     window.innerHeight * (isLargeCube() ? DESKTOP_CUBE_VH : MOBILE_CUBE_VH)
@@ -233,6 +235,13 @@ export function initIntroCubeScroll() {
 
   const setMorphExpand = (pinProgress) => {
     if (!morphTitle) return
+
+    if (isMobileStaticMorph()) {
+      morphTitle.style.setProperty('--expand-sense', '1')
+      morphTitle.style.setProperty('--expand-sensibility', '1')
+      return
+    }
+
     morphTitle.style.setProperty('--expand-sense', String(getSenseExpand(pinProgress)))
     morphTitle.style.setProperty('--expand-sensibility', String(getSensExpand(pinProgress)))
   }
@@ -241,7 +250,18 @@ export function initIntroCubeScroll() {
     if (eyebrow) eyebrow.classList.toggle('is-visible', showTitle)
     if (!morphTitle || morphComplete) return
 
+    const mobileStatic = isMobileStaticMorph()
+
     morphTitle.classList.toggle('is-visible', showTitle)
+    morphTitle.classList.toggle('is-mobile-static', mobileStatic && showTitle)
+
+    if (mobileStatic && showTitle) {
+      morphTitle.style.setProperty('--expand-sense', '1')
+      morphTitle.style.setProperty('--expand-sensibility', '1')
+      morphTitle.setAttribute('aria-label', 'Human Sense, Sensibility')
+      return
+    }
+
     const senseExpand = parseFloat(morphTitle.style.getPropertyValue('--expand-sense') || '0')
     const sensExpand = parseFloat(morphTitle.style.getPropertyValue('--expand-sensibility') || '0')
     morphTitle.setAttribute(

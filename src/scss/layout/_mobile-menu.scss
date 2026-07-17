@@ -53,7 +53,7 @@
 
     @include tablet {
       padding-inline: $container-padding-tablet;
-      padding-top: calc(80px + 48px);
+      padding-top: calc(#{$header-height-tablet} + 48px);
     }
 
     .mobile-menu.is-open & {

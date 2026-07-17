@@ -13,11 +13,11 @@ const DESKTOP_SMOOTHING = 0.035
 
 // 모바일 자동 회전
 const MOBILE_STOPS = [
-  { x: 15, y: 15, duration: 4000 },
-  { x: -15, y: 15, duration: 4000 },
-  { x: -15, y: -15, duration: 4000 },
-  { x: 15, y: -15, duration: 4000 },
-  { x: 0, y: 0, duration: 4000 },
+  { x: 15, y: 15, duration: 2800 },
+  { x: -15, y: 15, duration: 2800 },
+  { x: -15, y: -15, duration: 2800 },
+  { x: 15, y: -15, duration: 2800 },
+  { x: 0, y: 0, duration: 2800 },
 ]
 
 let cubeElement = null

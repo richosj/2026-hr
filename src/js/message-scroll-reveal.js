@@ -54,10 +54,10 @@ function cloneSplitNode(node, parent, state) {
   parent.appendChild(el)
 }
 
-function wrapParagraph(paragraph) {
-  const sourceNodes = Array.from(paragraph.childNodes)
+function wrapLine(element, { splitClass = 'words chars splitting', lineClass } = {}) {
+  const sourceNodes = Array.from(element.childNodes)
   const split = document.createElement('span')
-  split.className = 'message-copy__split words chars splitting'
+  split.className = splitClass
 
   const state = { charIndex: 0, wordIndex: 0 }
   sourceNodes.forEach((node) => cloneSplitNode(node, split, state))
@@ -65,41 +65,48 @@ function wrapParagraph(paragraph) {
   split.style.setProperty('--char-total', String(state.charIndex))
   split.style.setProperty('--word-total', String(state.wordIndex))
 
-  paragraph.classList.add('message-copy__line')
-  paragraph.replaceChildren(split)
+  if (lineClass) element.classList.add(lineClass)
+  element.replaceChildren(split)
 
   return Array.from(split.querySelectorAll('.char'))
 }
 
 /**
- * scroll-type #1: 흐린 글자 위에 스크롤로 선명해지는 char 리빌 (단일 레이어 — 겹침 없음)
+ * scroll-type #1: 흐린 글자 위에 스크롤로 선명해지는 char 리빌
  */
-export function initMessageScrollReveal() {
-  const section = document.getElementById('message')
-  const copy = document.querySelector('.message-copy')
-  if (!section || !copy || copy.dataset.splitReady === 'true') return
+function bindCharReveal(target, {
+  lineSelector,
+  splitClass,
+  lineClass,
+  revealStartRatio = 0.9,
+  revealEndRatio = 0.28,
+  onProgress,
+} = {}) {
+  if (!target || target.dataset.splitReady === 'true') return null
 
-  const chars = copy.querySelectorAll('p').length
-    ? Array.from(copy.querySelectorAll('p')).flatMap(wrapParagraph)
-    : []
+  const lines = lineSelector
+    ? Array.from(target.querySelectorAll(lineSelector))
+    : [target]
 
-  if (chars.length === 0) return
+  const chars = lines.flatMap((line) =>
+    wrapLine(line, { splitClass, lineClass }),
+  )
 
-  copy.dataset.splitReady = 'true'
+  if (chars.length === 0) return null
+
+  target.dataset.splitReady = 'true'
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const REVEAL_START_RATIO = 0.9
-  const REVEAL_END_RATIO = 0.28
 
   const update = () => {
     const vh = window.innerHeight
-    const rect = copy.getBoundingClientRect()
-    const revealStart = vh * REVEAL_START_RATIO
-    const revealEnd = vh * REVEAL_END_RATIO
+    const rect = target.getBoundingClientRect()
+    const revealStart = vh * revealStartRatio
+    const revealEnd = vh * revealEndRatio
     const progress = clamp((revealStart - rect.top) / Math.max(1, revealStart - revealEnd), 0, 1)
     const total = chars.length
 
-    document.body.classList.toggle('is-message-bg', rect.top <= revealStart)
+    onProgress?.(progress, rect, revealStart)
 
     if (reduceMotion) {
       chars.forEach((char) => char.style.setProperty('--reveal', '1'))
@@ -115,4 +122,27 @@ export function initMessageScrollReveal() {
   onScroll(update)
   update()
   window.addEventListener('resize', update)
+
+  return update
+}
+
+export function initMessageScrollReveal() {
+  const copy = document.querySelector('.message-copy')
+  bindCharReveal(copy, {
+    lineSelector: 'p',
+    splitClass: 'message-copy__split words chars splitting',
+    lineClass: 'message-copy__line',
+    onProgress: (_progress, rect, revealStart) => {
+      document.body.classList.toggle('is-message-bg', rect.top <= revealStart)
+    },
+  })
+
+  const registerTitle = document.querySelector('.register__title')
+  bindCharReveal(registerTitle, {
+    lineSelector: '.register__line',
+    splitClass: 'register__split words chars splitting',
+    // message보다 빨리 시작·완료 — 짧은 섹션에서 마지막 줄까지 채움
+    revealStartRatio: 1,
+    revealEndRatio: 0.55,
+  })
 }
