@@ -662,6 +662,19 @@ $program-morning-card-bg: #f2f9ff;
     }
   }
 
+  &--accent {
+    &:hover,
+    &:focus {
+      .program-list-card__title {
+        color: #3A7DFF;
+      }
+    }
+
+    .program-check__input:checked + .program-check__icon {
+      background-image: url('/assets/images/icon-checkbox-active-blue.svg');
+    }
+  }
+
   &__body {
     display: flex;
     flex: 1;
@@ -676,7 +689,7 @@ $program-morning-card-bg: #f2f9ff;
     justify-content: center;
     align-self: flex-start;
     padding: 10px 16px;
-    border-radius: 999px;
+    border-radius: 8px;
     background-color: #212121;
     font-size: 16px;
     font-weight: 500;
@@ -703,6 +716,12 @@ $program-morning-card-bg: #f2f9ff;
     line-height: 1.6;
     letter-spacing: -0.02em;
     color: $color-text;
+    transition: color 0.3s ease;
+  }
+
+  &__tag {
+    font-weight: 600;
+    color: #006DFF;
   }
 
   &__speakers {
