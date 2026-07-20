@@ -120,7 +120,7 @@ body.is-message-bg {
   
 }
 .section--message-detail {
-  background: #ece5e6;
+  background: #F7F3ED;
 
   @include tablet {
     background: linear-gradient(180deg, #f6f4f5 0%, #f7f3ec 100%);
@@ -216,6 +216,38 @@ body.is-message-bg {
 
     @include tablet {
       font-size: 20px;
+    }
+
+    .message-detail__line {
+      margin: 0;
+    }
+
+    .message-detail__line + .message-detail__line {
+      margin-top: 16px;
+    }
+
+    .message-detail__split {
+      display: inline;
+      width: 100%;
+    }
+
+    .words.chars.splitting {
+      display: inline;
+    }
+
+    .word {
+      display: inline;
+    }
+
+    .char {
+      display: inline;
+      opacity: calc(
+        #{$message-char-ghost-opacity} + (1 - #{$message-char-ghost-opacity}) * var(--reveal, 0)
+      );
+    }
+
+    .message-detail__split strong {
+      font-weight: 600;
     }
 
     p + p {

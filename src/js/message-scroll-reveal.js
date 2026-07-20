@@ -73,6 +73,9 @@ function wrapLine(element, { splitClass = 'words chars splitting', lineClass } =
 
 /**
  * scroll-type #1: 흐린 글자 위에 스크롤로 선명해지는 char 리빌
+ *
+ * softWindow: 글자당 페이드 폭 (1=딱딱한 한 글자씩, 클수록 부드럽게 겹쳐 차오름)
+ * revealStartRatio / revealEndRatio: 스크롤 구간 — 간격이 클수록 느리게 참
  */
 function bindCharReveal(target, {
   lineSelector,
@@ -80,6 +83,7 @@ function bindCharReveal(target, {
   lineClass,
   revealStartRatio = 0.9,
   revealEndRatio = 0.28,
+  softWindow = 1,
   onProgress,
 } = {}) {
   if (!target || target.dataset.splitReady === 'true') return null
@@ -97,6 +101,7 @@ function bindCharReveal(target, {
   target.dataset.splitReady = 'true'
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const windowSize = Math.max(1, softWindow)
 
   const update = () => {
     const vh = window.innerHeight
@@ -113,8 +118,10 @@ function bindCharReveal(target, {
       return
     }
 
+    // softWindow만큼 겹쳐 차오르게 → 덜 끊기고 스무스
+    const span = total + windowSize - 1
     chars.forEach((char, index) => {
-      const reveal = clamp(progress * total - index, 0, 1)
+      const reveal = clamp((progress * span - index) / windowSize, 0, 1)
       char.style.setProperty('--reveal', String(reveal))
     })
   }
@@ -132,9 +139,23 @@ export function initMessageScrollReveal() {
     lineSelector: 'p',
     splitClass: 'message-copy__split words chars splitting',
     lineClass: 'message-copy__line',
+    // 스크롤 구간 넓히고 softWindow로 부드럽게
+    revealStartRatio: 0.95,
+    revealEndRatio: 0.05,
+    softWindow: 6,
     onProgress: (_progress, rect, revealStart) => {
       document.body.classList.toggle('is-message-bg', rect.top <= revealStart)
     },
+  })
+
+  const detailCopy = document.querySelector('.message-detail__copy')
+  bindCharReveal(detailCopy, {
+    lineSelector: 'p',
+    splitClass: 'message-detail__split words chars splitting',
+    lineClass: 'message-detail__line',
+    revealStartRatio: 0.95,
+    revealEndRatio: 0.08,
+    softWindow: 6,
   })
 
   const registerTitle = document.querySelector('.register__title')
@@ -144,5 +165,6 @@ export function initMessageScrollReveal() {
     // message보다 빨리 시작·완료 — 짧은 섹션에서 마지막 줄까지 채움
     revealStartRatio: 1,
     revealEndRatio: 0.55,
+    softWindow: 3,
   })
 }
