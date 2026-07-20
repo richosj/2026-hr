@@ -17,10 +17,15 @@ body.is-message-bg {
 
   .section__bg {
     background-color: transparent;
-    background-image: url('@assets/images/hero/home_message_01@2x.svg');
+    background-image: url('@assets/images/hero/home_message_01@2x-m.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover;
+    background-size: 100% 100%;
+    
+    @include tablet {
+      background-image: url('@assets/images/hero/home_message_01@2x.svg');
+      background-size: cover;
+    }
   }
 
   .section__fade {
@@ -29,7 +34,7 @@ body.is-message-bg {
     bottom: 0;
     z-index: 0;
     height: 42%;
-    background: linear-gradient(to top, #f6f4f5 0%, rgba(246, 244, 245, 0) 100%);
+    //background: linear-gradient(180deg, #F6F4F5 0%, #F6F4F5 100%);
   }
 }
 
@@ -38,9 +43,10 @@ body.is-message-bg {
   z-index: 1;
   justify-content: space-between;
   min-height: 440px;
-
+  height: 77vh;
   @include tablet {
     min-height: 644px;
+    height: auto;
   }
 
   @include desktop {
@@ -120,7 +126,9 @@ body.is-message-bg {
   
 }
 .section--message-detail {
-  background: #F7F3ED;
+  background: linear-gradient(180deg, #F6F4F5 0%, #F8F3EB 100%);
+  //background: linear-gradient(180deg, color(display-p3 0.9647 0.9569 0.9608) 0%, color(display-p3 0.9686 0.9529 0.9255) 100%);
+
 
   @include tablet {
     background: linear-gradient(180deg, #f6f4f5 0%, #f7f3ec 100%);

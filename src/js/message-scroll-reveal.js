@@ -76,6 +76,7 @@ function wrapLine(element, { splitClass = 'words chars splitting', lineClass } =
  *
  * softWindow: 글자당 페이드 폭 (1=딱딱한 한 글자씩, 클수록 부드럽게 겹쳐 차오름)
  * revealStartRatio / revealEndRatio: 스크롤 구간 — 간격이 클수록 느리게 참
+ * progressTarget: 진행률 측정 요소 (기본=target). 섹션 도착 기준으로 맞출 때 사용
  */
 function bindCharReveal(target, {
   lineSelector,
@@ -84,6 +85,7 @@ function bindCharReveal(target, {
   revealStartRatio = 0.9,
   revealEndRatio = 0.28,
   softWindow = 1,
+  progressTarget,
   onProgress,
 } = {}) {
   if (!target || target.dataset.splitReady === 'true') return null
@@ -102,10 +104,11 @@ function bindCharReveal(target, {
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const windowSize = Math.max(1, softWindow)
+  const measureEl = progressTarget || target
 
   const update = () => {
     const vh = window.innerHeight
-    const rect = target.getBoundingClientRect()
+    const rect = measureEl.getBoundingClientRect()
     const revealStart = vh * revealStartRatio
     const revealEnd = vh * revealEndRatio
     const progress = clamp((revealStart - rect.top) / Math.max(1, revealStart - revealEnd), 0, 1)
@@ -149,22 +152,27 @@ export function initMessageScrollReveal() {
   })
 
   const detailCopy = document.querySelector('.message-detail__copy')
+  const detailSection = document.getElementById('message-detail')
   bindCharReveal(detailCopy, {
     lineSelector: 'p',
     splitClass: 'message-detail__split words chars splitting',
     lineClass: 'message-detail__line',
-    revealStartRatio: 0.95,
-    revealEndRatio: 0.08,
-    softWindow: 6,
+    // 섹션이 뷰포트에 들어온 뒤 첫 문장부터 천천히 채움
+    progressTarget: detailSection,
+    revealStartRatio: 0.78,
+    revealEndRatio: -0.05,
+    softWindow: 8,
   })
 
   const registerTitle = document.querySelector('.register__title')
+  const registerSection = document.getElementById('apply')
   bindCharReveal(registerTitle, {
     lineSelector: '.register__line',
     splitClass: 'register__split words chars splitting',
-    // message보다 빨리 시작·완료 — 짧은 섹션에서 마지막 줄까지 채움
-    revealStartRatio: 1,
-    revealEndRatio: 0.55,
-    softWindow: 3,
+    // 섹션 도착 후 시작, 스크롤 구간을 넓혀 천천히 채움
+    progressTarget: registerSection,
+    revealStartRatio: 0.8,
+    revealEndRatio: 0.25,
+    softWindow: 5,
   })
 }
